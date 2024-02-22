@@ -1,4 +1,4 @@
-import { usePage } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import { format } from 'date-fns';
 import React from 'react'
 
@@ -74,7 +74,7 @@ export default function JobList(props) {
                         </div>
                     </div>
                     <div className="row">
-                    {jobs.map(({ title,salary,category_id,location_id,company_id,description,created_at }) => (
+                    {jobs.map(({id, title,salary,category_id,location_id,company_id,description,created_at }) => (
                     <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
                         <div className="card-grid-2 hover-up">
                         <div className="card-grid-2-image-left"><span className="flash" />
@@ -84,7 +84,7 @@ export default function JobList(props) {
                             <div className="right-info"><a className="name-job" href="company-details.html">{CompanyName(company_id)}</a><span className="location-small">{LocationName(location_id)}</span></div>
                         </div>
                         <div className="card-block-info">
-                            <h6><a href="JobDetails">{title}</a></h6>
+                            <h6><Link href={'job-details/'+ id}>{title}</Link></h6> 
                             <div className="mt-5"><span className="card-briefcase">{CategoryName(category_id)}</span><span className="card-time"> {myDate(created_at)}</span></div>
                             <div className="font-sm color-text-paragraph mt-15">{shortText(withoutTag(description), 10)}</div>
                             <div className="row">

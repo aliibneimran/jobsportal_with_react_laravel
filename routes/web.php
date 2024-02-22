@@ -34,7 +34,30 @@ Route::get('/',[HomeController::class, 'index']);
 Route::get('/about',[HomeController::class, 'index']);
 Route::get('/contact',[HomeController::class, 'index']);
 Route::get('/jobs',[JobListController::class, 'index']);
+Route::get('/job-details/{id}',[JobDetailsController::class, 'index']);
 
+//Candidate Middleware
+Route::prefix('candidate')->group(function(){
+    Route::get('login',[CandidateController::class,'index'])->name('candidate_login_form');
+    Route::post('login/candidate',[CandidateController::class,'login'])->name('candidate_login');
+    Route::get('profile',[CandidateController::class,'profile'])->name('candidate_profile')->middleware('candidate');
+    Route::get('logout',[CandidateController::class,'logout'])->name('candidate_logout')->middleware('candidate');
+    Route::get('register',[CandidateController::class,'register'])->name('candidate_register');
+    Route::post('register/create',[CandidateController::class,'registration'])->name('candidate.register.create');
+
+    Route::get('edit-profile', [CandidateController::class, 'editProfile'])->name('candidate.edit.profile')->middleware('candidate');
+    Route::post('update-profile', [CandidateController::class, 'updateProfile'])->name('candidate.update.profile')->middleware('candidate');
+
+    Route::post('apply', [ApplicationController::class, 'application'])->name('apply.job')->middleware('candidate');
+
+    Route::get('jobs', [JobListController::class, 'index'])->name('jobs')->middleware('candidate');
+    Route::get('/job/details/{id}', [JobDetailsController::class, 'index'])->name('job.details')->middleware('candidate');
+
+    Route::get('about', [JobListController::class, 'about'])->name('about')->middleware('candidate');
+    Route::get('contact', [JobListController::class, 'contact'])->name('contact')->middleware('candidate');
+
+
+});
 
 //Admin Middleware
 Route::prefix('admin')->group(function(){
@@ -131,28 +154,7 @@ Route::prefix('company')->group(function(){
     // Route::get('jobs/delete/{id}',[JobController::class,'delete'])->name('jobs.delete')->middleware('company');
 });
 
-//Candidate Middleware
-Route::prefix('candidate')->group(function(){
-    Route::get('login',[CandidateController::class,'index'])->name('candidate_login_form');
-    Route::post('login/candidate',[CandidateController::class,'login'])->name('candidate_login');
-    Route::get('profile',[CandidateController::class,'profile'])->name('candidate_profile')->middleware('candidate');
-    Route::get('logout',[CandidateController::class,'logout'])->name('candidate_logout')->middleware('candidate');
-    Route::get('register',[CandidateController::class,'register'])->name('candidate_register');
-    Route::post('register/create',[CandidateController::class,'registration'])->name('candidate.register.create');
 
-    Route::get('edit-profile', [CandidateController::class, 'editProfile'])->name('candidate.edit.profile')->middleware('candidate');
-    Route::post('update-profile', [CandidateController::class, 'updateProfile'])->name('candidate.update.profile')->middleware('candidate');
-
-    Route::post('apply', [ApplicationController::class, 'application'])->name('apply.job')->middleware('candidate');
-
-    Route::get('jobs', [JobListController::class, 'index'])->name('jobs')->middleware('candidate');
-    Route::get('/job/details/{id}', [JobDetailsController::class, 'index'])->name('job.details')->middleware('candidate');
-
-    Route::get('about', [JobListController::class, 'about'])->name('about')->middleware('candidate');
-    Route::get('contact', [JobListController::class, 'contact'])->name('contact')->middleware('candidate');
-
-
-});
 
 
 Route::get('/dashboard', function () {
