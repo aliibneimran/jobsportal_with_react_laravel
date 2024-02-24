@@ -1,9 +1,15 @@
+import Footer from '@/Components/Footer'
+import Header from '@/Components/Header'
+import { usePage } from '@inertiajs/react'
 import React from 'react'
 
-export default function Profile() {
+export default function Profile(props) {
+  const {candidate, canDetails } = usePage().props;
+  console.log(candidate);
   return (
     <>
-<main className="main">
+<Header></Header>
+<main className="main mt-80">
   <section className="section-box mt-50">
     <div className="container">
       <div className="row">
@@ -23,13 +29,7 @@ export default function Profile() {
             <div className="tab-content">
               <div className="tab-pane fade show active" id="tab-my-profile" role="tabpanel" aria-labelledby="tab-my-profile">
                 <h3 className="mt-0 mb-15 color-brand-1 text-center">My Account</h3>
-                {/* Success Message */}
-                @if (session('msg'))
-                <div className="alert alert-success alert-dismissible fade show" role="alert">
-                  {'{'}{'{'} session('msg') {'}'}{'}'}
-                </div>
-                @endif
-                @if (Auth::guard('candidate')-&gt;check())
+                
                 <div className="row">
                   <div className="mt-35 mb-40 box-info-profie text-center">
                     <img src="{{asset('uploads/' . ($canDetails->image ?? 'candidate.jpg')) }}" alt="Image" width="120px" height="120px" className="rounded-circle" />
@@ -37,44 +37,44 @@ export default function Profile() {
                   <div className="col-lg-6">
                     <div className="form-group">
                       <label htmlFor="lastName">Name</label>
-                      <input type="text" className="form-control aria-disabled" @disabled(true) defaultValue="{{ Auth::guard('candidate')->user()->name }}" />
+                      <input type="text" value={candidate.name} className="form-control aria-disabled" />
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="form-group">
                       <label htmlFor="lastName">Email</label>
-                      <input type="text" className="form-control aria-disabled" @disabled(true) defaultValue="{{ Auth::guard('candidate')->user()->email }}" />
+                      <input type="text" value={candidate.email} className="form-control aria-disabled" />
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="form-group">
                       <label htmlFor="lastName">Contact</label>
-                      <input type="text" className="form-control aria-disabled" @disabled(true) defaultValue="{{ $canDetails->contact ?? '' }}" />
+                      <input type="text" className="form-control aria-disabled"/>
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="form-group">
                       <label htmlFor="lastName">Address</label>
-                      <input type="text" className="form-control aria-disabled" @disabled(true) defaultValue="{{ $canDetails->address ?? '' }}" />
+                      <input type="text" className="form-control aria-disabled" />
                     </div>
                   </div>
                   <div className="col-lg-12">
                     <div className="form-group">
                       <label htmlFor="lastName">Bio</label>
-                      <textarea className="form-control aria-disabled" @disabled(true) defaultValue={"{{ $canDetails->bio ?? '' }}"} />
+                      <textarea className="form-control aria-disabled"/>
                     </div>
                   </div>
                 </div>
                 <div className="mt-20 text-center">
-                  <a href="{{route('candidate.edit.profile')}}" className="btn btn-apply-big font-md font-bold" type="submit">Edit Profile</a>
+                  <a href={route('candidate.edit.profile')} className="btn btn-apply-big font-md font-bold bg-primary" type="submit">Edit Profile</a>
                 </div>
-                @endif
+              
               </div>
-              @if($application)
+
               <div className="tab-pane fade" id="tab-my-jobs" role="tabpanel" aria-labelledby="tab-my-jobs">
                 <h3 className="mt-0 color-brand-1 mb-50">My Jobs</h3>
                 <div className="row display-list">
-                  @foreach ($application as $item)
+                  
                   <div className="col-xl-12 col-12">
                     <div className="card-grid-2 hover-up"><span className="flash" />
                       <div className="row">
@@ -104,17 +104,15 @@ export default function Profile() {
                       </div>
                     </div>
                   </div>
-                  @endforeach   
+                 
                 </div>
                 <div className="paginations">
-                  {'{'}{'{'}-- {'{'}{'{'} $jobs-&gt;links() {'}'}{'}'} --{'}'}{'}'}
-                  {'{'}{'{'} $application-&gt;links('pagination::bootstrap-5') {'}'}{'}'}
-                  {'{'}{'{'}-- {'{'}!! $jobs-&gt;withQueryString()-&gt;links('pagination::bootstrap-5')!!{'}'} --{'}'}{'}'}
+                  
                 </div>
               </div>
-              @else
+              
               <h2>There is no Application</h2>
-              @endif
+              
               <div className="tab-pane fade" id="tab-saved-jobs" role="tabpanel" aria-labelledby="tab-saved-jobs">
                 <h3 className="mt-0 color-brand-1 mb-50">Saved Jobs</h3>
                 <div className="row"> 
@@ -347,6 +345,7 @@ export default function Profile() {
     </div>
   </section>
 </main>
+<Footer></Footer>
 
     </>
   )

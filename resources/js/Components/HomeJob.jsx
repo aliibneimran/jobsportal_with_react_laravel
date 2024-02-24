@@ -1,8 +1,35 @@
 import { usePage } from '@inertiajs/react';
 import React from 'react'
+import { format } from 'date-fns';
+import parse from 'html-react-parser'
 
 export default function HomeJob(props) {
-    const{jobs} = usePage().props
+    const{jobs,categories,locations,companies} = usePage().props
+    const CategoryName = (id) => {
+        const category = categories.find(cat => cat.id === id);
+        return category ? category.name : 'Unknown Category';
+    };
+    const LocationName = (id) => {
+        const location = locations.find(loc => loc.id === id);
+        return location ? location.name : 'Unknown Location';
+    };
+    const CompanyName = (id) => {
+        const company = companies.find(com => com.id === id);
+        return company ? company.name : 'Unknown Company';
+    };
+    const CompanyImage = (id) => {
+        const company = comDetails.find(com => com.id === id);
+        return company ? company.image : 'Unknown Company';
+    };
+    const myDate = (createdAt) => {
+        const formattedDay = format(new Date(createdAt), 'dd-MM-yyyy');
+        return formattedDay;
+    };
+    const shortText = (text, wordCount) => {
+        const words = text.split(' ');
+        const description = words.slice(0, wordCount);
+        return description.join(' ');
+    };
     // console.log(jobs)
   return (
       <section className="section-box mt-30">
@@ -58,7 +85,7 @@ export default function HomeJob(props) {
                                   <div className="card-grid-2 grid-bd-16 hover-up">
                                       <div className="card-grid-2-image">
                                           <span className="lbl-hot bg-green">
-                                              <span>{category_id}</span>
+                                              <span>{CategoryName(category_id)}</span>
                                           </span>
                                           <div className="image-box">
                                               <figure>
@@ -69,8 +96,8 @@ export default function HomeJob(props) {
                                       <div className="card-block-info">
                                           <h5><a href="job-details.html">{title}</a></h5>
                                           <div className="mt-5">
-                                              <span className="card-location mr-15">{location_id}</span>
-                                              <span className="card-time">{created_at}</span>
+                                              <span className="card-location mr-15">{LocationName(location_id)}</span>
+                                              <span className="card-time">{myDate(created_at)}</span>
                                           </div>
                                           <div className="card-2-bottom mt-20">
                                               <div className="row">
@@ -80,7 +107,7 @@ export default function HomeJob(props) {
                                                   </div>
                                               </div>
                                           </div>
-                                          <p className="font-sm color-text-paragraph mt-20">{description}</p>
+                                          <p className="font-sm color-text-paragraph mt-20">{parse(shortText(description, 30))}</p>
                                       </div>
                                   </div>
                               </div>

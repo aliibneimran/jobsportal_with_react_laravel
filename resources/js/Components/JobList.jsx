@@ -1,6 +1,7 @@
 import { Link, usePage } from '@inertiajs/react'
 import { format } from 'date-fns';
 import React from 'react'
+import parse from 'html-react-parser'
 
 export default function JobList(props) {
     const{jobs,categories,locations,industries,companies,comDetails,} = usePage().props
@@ -86,7 +87,7 @@ export default function JobList(props) {
                         <div className="card-block-info">
                             <h6><Link href={'job-details/'+ id}>{title}</Link></h6> 
                             <div className="mt-5"><span className="card-briefcase">{CategoryName(category_id)}</span><span className="card-time"> {myDate(created_at)}</span></div>
-                            <div className="font-sm color-text-paragraph mt-15">{shortText(withoutTag(description), 10)}</div>
+                            <div className="font-sm color-text-paragraph mt-15">{parse(shortText(description,30))}</div>
                             <div className="row">
                             </div>
                             <div className="card-2-bottom mt-30">
@@ -102,9 +103,7 @@ export default function JobList(props) {
                     </div>
                 </div>
                 <div className="paginations">
-                    --  $jobs-&gt;links()  --
-                     $jobs-&gt;links('pagination::bootstrap-5') 
-                    -- {'{'}!! $jobs-&gt;withQueryString()-&gt;links('pagination::bootstrap-5')!!{'}'} --
+                   
                 </div>
                 </div>
                 <div className="col-lg-3 col-md-12 col-sm-12 col-12">

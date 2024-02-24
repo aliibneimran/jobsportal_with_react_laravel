@@ -10,16 +10,17 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\DemoMail;
 use App\Models\Applicant;
 use Illuminate\Support\Facades\Mail;
+use Inertia\Inertia;
 
 class CandidateController extends Controller
 {
     public function index(){
-        return view('frontend.candidate.index');
+        return Inertia::render('Signin');
     }
     public function login(Request $request){
         // dd($request->all());
         if(Auth::guard('candidate')->attempt(['email'=> $request->email,'password'=> $request->password])){
-            return redirect()->route('candidate_profile');
+            return Inertia::render(route('candidate_profile'));
         }else{
             return redirect()->back()->with('msg','Please enter currect email and password');
         }
@@ -29,7 +30,7 @@ class CandidateController extends Controller
         return redirect()->route('candidate_login_form');
     }
     public function register(){
-        return view('frontend.candidate.register');
+        return Inertia::render('Signup');
     }
     public function registration(Request $request){
         // dd($request->all());
@@ -41,27 +42,24 @@ class CandidateController extends Controller
 
         Auth::guard('candidate')->login($candidate);
 
-        
-        // $mailData = [
-        //     'title' => 'Success Register',
-        //     'body' => 'Please Complete Your Profile',
-        // ];
-        // Mail::to('aliibneimran1996@gmail.com')->send(new DemoMail($mailData));
         return redirect()->route('candidate_profile');
         
     }
     public function profile(){
+        $candidate = Auth::guard('candidate')->user();
         $canDetails = CandidateDetails::all()->where('candidate_id', Auth::guard('candidate')->user()->id)->first();
         $application = Applicant::paginate(3);
-        return view('frontend.candidate.profile',compact('canDetails','application'));
+        return Inertia::render('Profile',compact('candidate','canDetails','application'));
+
     }
     public function editProfile(){
+        $candidate = Auth::guard('candidate')->user();
         $canDetails = CandidateDetails::all()->where('candidate_id', Auth::guard('candidate')->user()->id)->first();
-        return view('frontend.candidate.editProfile',compact('canDetails'));
+        return Inertia::render('EditProfile',compact('candidate','canDetails'));
     } 
     
     public function updateProfile(Request $request){
-
+        dd($request->all());
         $request->validate([
             'name' => 'string|max:255|nullable',
             'email' => 'email|max:255|nullable',

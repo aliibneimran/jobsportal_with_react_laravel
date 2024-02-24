@@ -45,7 +45,7 @@ class HomeController extends Controller
 
         $data['locations'] = Location::with('job')->get();
         $data['jobs'] = Job::get();
-        $data['locations'] = Location::paginate(4);
+        $data['locations'] = Location::get();
         $data['industries'] = Industry::all();
         $data['categories'] = Category::all(); 
 

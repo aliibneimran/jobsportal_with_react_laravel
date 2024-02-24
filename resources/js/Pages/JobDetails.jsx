@@ -111,12 +111,12 @@ export default function JobDetails(props) {
                         <a style={{ visibility: Auth() ? 'hidden' : 'visible' }} className="btn btn-primary btn-shadow hover-up mx-2" href="{{ route('candidate_login_form') }}">Please Sign in First</a> */}
 
                         {
-                            !Auth() ? <div>
+                            Auth() ? <div>
                                  <button className="btn btn-danger mr-15">Already Applied</button>
                                 <a className="btn btn-default mr-15" data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Apply Now</a>
 
                                 <a className="btn btn-border" href="#">Save Job</a>
-                                 </div> : <div>
+                                </div> : <div>
                                 <a className="btn btn-primary btn-shadow hover-up mx-2" href="{{ route('candidate_login_form') }}">Please Sign in First</a>
                                 </div>
                         }

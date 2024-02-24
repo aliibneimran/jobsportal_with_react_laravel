@@ -7,7 +7,7 @@ export default function Header() {
     <div className="container">
         <div className="main-header">
         <div className="header-left">
-            <div className="header-logo"><Link className="d-flex" href="index.html"><img alt="jobBox" src="frontend/imgs/template/jobhub-logo.svg" /></Link></div>
+            <div className="header-logo"><Link className="d-flex" href="index.html"><img alt="jobBox" src="../frontend/imgs/template/jobhub-logo.svg" /></Link></div>
         </div>
         <div className="header-nav">
             <nav className="nav-main-menu">
@@ -24,8 +24,8 @@ export default function Header() {
         </div>
         <div className="header-right">
             <div className="block-signin">
-                <Link className="text-link-bd-btom hover-up" href="singup">Register</Link>
-                <Link className="btn btn-default btn-shadow ml-40 hover-up" href="login">Sign in</Link>
+                <Link className="text-link-bd-btom hover-up" href={route('candidate_register')}>Register</Link>
+                <Link className="btn btn-default btn-shadow ml-40 hover-up" href={route('candidate_login_form')}>Sign in</Link>
             </div>
         </div>
         </div>

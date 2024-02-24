@@ -3,7 +3,7 @@
 @section('title','Registration')
 
 @section('content')
-<main class="main">
+  <main class="main">
       <section class="pt-100 login-register">
         <div class="container"> 
           <div class="row login-register-cover">
@@ -47,5 +47,5 @@
           </div>
         </div>
       </section>
-    </main>
+  </main>
 @endsection
