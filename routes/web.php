@@ -30,10 +30,10 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/',[HomeController::class, 'index']);
-Route::get('/about',[HomeController::class, 'index']);
-Route::get('/contact',[HomeController::class, 'index']);
-Route::get('/jobs',[JobListController::class, 'index']);
+Route::get('/',[HomeController::class, 'index'])->name('home');
+Route::get('/about',[HomeController::class, 'index'])->name('about');
+Route::get('/contact',[HomeController::class, 'index'])->name('contact');
+Route::get('/jobs',[JobListController::class, 'index'])->name('jobs');
 Route::get('/job-details/{id}',[JobDetailsController::class, 'index']);
 // Route::get('/signin',[CandidateController::class,'index']);
 

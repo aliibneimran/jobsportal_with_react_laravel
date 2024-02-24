@@ -4,7 +4,7 @@ import { useForm, usePage } from '@inertiajs/react';
 import React from 'react'
 import { useEffect } from 'react';
 
-export default function Signin(status) {
+export default function Signin(props) {
     const { candidate } = usePage().props;
     const { data,setData,errors, post} = useForm({});
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function Signin(status) {
                 <button className="btn social-login hover-up mb-20"><img src="../frontend/imgs/template/icons/icon-google.svg" alt="jobbox" /><strong>Sign in with Google</strong></button>
                 <div className="divider-text-center"><span>Or continue with</span></div>
             </div>
-            {/* {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>} */}
+            
             <form className="login-register text-start mt-20" onSubmit={submit}>
                 <div className="form-group">
                 <label className="form-label" htmlFor="input-1">Email address *</label>
@@ -38,7 +38,7 @@ export default function Signin(status) {
                 </div>
                 <div className="form-group">
                 <label className="form-label" htmlFor="input-4">Password *</label>
-                <input className="form-control" id="input-4" type="password" required name="password" value={data.password} onChange={(e) => setData('password', e.target.value)} /><span className="text-red-600">{errors.email}</span>
+                <input className="form-control" id="input-4" type="password" required name="password" value={data.password} onChange={(e) => setData('password', e.target.value)} /><span className="text-red-600">{errors.password}</span>
                 </div>
                 <div className="login_footer form-group d-flex justify-content-between">
                 <label className="cb-container">
