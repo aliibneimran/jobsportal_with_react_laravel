@@ -5,16 +5,10 @@ import React from 'react'
 import { useEffect } from 'react';
 
 export default function Signin(props) {
-    const { candidate } = usePage().props;
-    const { data,setData,errors, post} = useForm({});
-    useEffect(() => {
-        return () => {
-            reset('password');
-        };
-    }, []);
+    const { data,setData, post, errors } = useForm();
+  
     const submit = (e) => {
         e.preventDefault();
-
         post(route('candidate_login'));
     };
   return (
@@ -31,7 +25,7 @@ export default function Signin(props) {
                 <div className="divider-text-center"><span>Or continue with</span></div>
             </div>
             
-            <form className="login-register text-start mt-20" onSubmit={submit}>
+            <form className="login-register text-start mt-20" onSubmit={submit} action={route('candidate_login')} method='post'>
                 <div className="form-group">
                 <label className="form-label" htmlFor="input-1">Email address *</label>
                 <input className="form-control" id="input-1" type="text" required name="email"  value={data.email} onChange={(e) => setData('email', e.target.value)} /><span className="text-red-600">{errors.email}</span>

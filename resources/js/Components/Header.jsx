@@ -1,12 +1,14 @@
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import React from 'react'
+import { useState } from 'react';
 
 export default function Header() {
-    const Auth = () => {};
-  return (
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    
+  return ( 
       <header className="header fixed-top bg-light p-3">
           <div className="container">
-            {Auth()?
+            {isLoggedIn?
               <div className="main-header">
                   <div className="header-left">
                       <div className="header-logo">
@@ -33,7 +35,7 @@ export default function Header() {
                   </div>
                   <div className="header-right">
                       <div className="block-signin">
-                          <Link className="btn btn-danger hover-up" href="">Logout</Link>
+                          <Link className="btn btn-danger hover-up" href={route('candidate_logout')}>Logout</Link>
                       </div>
                   </div>
               </div>

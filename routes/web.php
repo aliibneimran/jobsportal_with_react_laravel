@@ -35,7 +35,7 @@ Route::get('/about',[HomeController::class, 'index'])->name('about');
 Route::get('/contact',[HomeController::class, 'index'])->name('contact');
 Route::get('/jobs',[JobListController::class, 'index'])->name('jobs');
 Route::get('/job-details/{id}',[JobDetailsController::class, 'index']);
-// Route::get('/signin',[CandidateController::class,'index']);
+
 
 //Candidate Middleware
 Route::prefix('candidate')->group(function(){

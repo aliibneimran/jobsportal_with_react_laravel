@@ -11,6 +11,10 @@ export default function EditProfile(props) {
     
         post(route("candidate.update.profile"));
       }
+    const handleFileChange = (e) => {
+      const file = e.target.files[0];
+      setSelectedFile(file);
+    };  
   return (
     <>
 <Header></Header>
@@ -35,15 +39,14 @@ export default function EditProfile(props) {
               <div className="tab-pane fade show active" id="tab-my-profile" role="tabpanel" aria-labelledby="tab-my-profile">
                 <h3 className="mt-0 mb-15 color-brand-1 text-center">Edit Account</h3>
                 
-                <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
+                <form method="post" enctype="multipart/form-data" onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="mt-35 mb-40 box-info-profie text-center">
                       <div>
                         <img src="{{asset('uploads/' . ($canDetails->image ?? 'candidate.jpg')) }}" alt="Image" width="120px" height="120px" className="rounded-circle" />
                       </div>
                       <div className="m-auto p-10">
-                        <button className="btn btn-primary"><input type="file" name="profile" onChange={(e) => setData("profile", e.target.value)}/></button>
-                        {/* <input type="file" name="profile" onChange={(e) => setData("profile", e.target.value)}/> */}
+                        <button className="btn btn-primary"><input type="file" name="profile" onChange={handleFileChange}/></button>
                       </div>
                     </div>
                     <div className="col-lg-6">
@@ -95,7 +98,7 @@ export default function EditProfile(props) {
                       </div>
                     </div>
                   </div>
-                  <input type="hidden" name="candidate_id" value={candidate.id}/>
+                  <input type="hidden" name="candidate_id" value={candidate.id} />
                   <div className="mt-20 text-center">
                     <button className="btn btn-apply-big font-md font-bold bg-primary" type="submit">Update Profile</button>
                   </div>

@@ -20,10 +20,12 @@ class CandidateController extends Controller
     public function login(Request $request){
         // dd($request->all());
         if(Auth::guard('candidate')->attempt(['email'=> $request->email,'password'=> $request->password])){
-            return Inertia::render(route('candidate_profile'));
+            return redirect()->route('candidate_profile');
+            // return Inertia::render('profile');
         }else{
             return redirect()->back()->with('msg','Please enter currect email and password');
         }
+
     }
     public function logout(){
         Auth::guard('candidate')->logout();
