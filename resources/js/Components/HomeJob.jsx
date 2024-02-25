@@ -1,4 +1,4 @@
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import React from 'react'
 import { format } from 'date-fns';
 import parse from 'html-react-parser'
@@ -117,6 +117,7 @@ export default function HomeJob(props) {
                       
                   </div>
               </div>
+              <div className='d-flex justify-content-center mt-30'><Link href='/jobs' className='btn btn-info'>More Jobs</Link></div>
           </div>
       </section>
   );

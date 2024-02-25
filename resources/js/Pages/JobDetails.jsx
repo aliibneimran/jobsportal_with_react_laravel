@@ -4,10 +4,11 @@ import { Link, usePage } from '@inertiajs/react';
 import { format } from 'date-fns';
 import parse from 'html-react-parser'
 import React from 'react'
+import { useState } from 'react';
 
 export default function JobDetails(props) {
-    const{jobs,categories,locations,industries,companies,comDetails,application,user} = usePage().props
-    const Auth = () => {};
+    const{jobs,categories,locations,industries,companies,comDetails,application,user,user_id} = usePage().props
+    // const Auth = () => {};
     const CategoryName = (id) => {
         const category = categories.find(cat => cat.id === id);
         return category ? category.name : 'Unknown Category';
@@ -32,6 +33,37 @@ export default function JobDetails(props) {
         const formattedDay = format(new Date(createdAt), 'dd-MM-yyyy');
         return formattedDay;
     };
+
+    const [formData, setFormData] = useState({name: '',email: '',contact: '',bio: '',cv: null,job_id: jobs.id,company_id: jobs.company_id,candidate_id: user_id,});
+    
+      const handleInputChange = (e) => {
+        const { name, value, files } = e.target;
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: files ? files[0] : value,
+        }));
+      };
+    
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+      
+        const form = new FormData();
+        for (const key in formData) {
+          form.append(key, formData[key]);
+        }
+      
+        try {
+          const response = await fetch('/apply-job-route', {  // Replace with your actual route
+            method: 'POST',
+            body: form,
+          });
+      
+          const data = await response.json();
+          console.log(data);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
     console.log(application)
   return (
     <>
@@ -179,31 +211,31 @@ export default function JobDetails(props) {
                     <p className="font-sm text-muted mb-30">Please fill in your information and send it to the employer. </p>
                     </div>
                    
-                    <form className="login-register text-start mt-20 pb-30" action="{{route('apply.job',$jobs->id)}}" method="post" encType="multipart/form-data"> 
+                    <form className="login-register text-start mt-20 pb-30" onSubmit={handleSubmit} method="post" encType="multipart/form-data"> 
                     
-                    <input type="hidden" name="job_id"  />
-                    <input type="hidden" name="company_id" />
-                    <input type="hidden" name="candidate_id"  />
+                    <input type="text" name="job_id" value={formData.job_id} />
+                    <input type="text" name="company_id" value={formData.company_id}/>
+                    <input type="text" name="candidate_id"  value={formData.candidate_id}/>
                    
                     <div className="form-group">
                         <label className="form-label" htmlFor="input-1">Full Name *</label>
-                        <input className="form-control" id="input-1" type="text" name="name" />
+                        <input className="form-control" id="input-1" type="text" name="name" value={formData.name} onChange={handleInputChange}/>
                     </div>
                     <div className="form-group">
                         <label className="form-label" htmlFor="input-2">Email *</label>
-                        <input className="form-control" id="input-2" type="email" name="email" />
+                        <input className="form-control" id="input-2" type="email" name="email" value={formData.email} onChange={handleInputChange}/>
                     </div>
                     <div className="form-group">
                         <label className="form-label" htmlFor="number">Contact Number *</label>
-                        <input className="form-control" id="number" type="text" name="contact"/>
+                        <input className="form-control" id="number" type="text" name="contact" value={formData.contact} onChange={handleInputChange}/>
                     </div>
                     <div className="form-group">
                         <label className="form-label" htmlFor="des">Description</label>
-                        <input className="form-control" id="des" type="text" name="bio"/>
+                        <input className="form-control" id="des" type="text" name="bio" value={formData.description} onChange={handleInputChange}/>
                     </div>
                     <div className="form-group">
                         <label className="form-label" htmlFor="file">Upload Resume</label>
-                        <input className="form-control" id="file" name="cv" type="file" />
+                        <input className="form-control" id="file" name="cv" type="file" value={formData.cv} onChange={handleInputChange}/>
                     </div>
                     <div className="login_footer form-group d-flex justify-content-between">
                         <label className="cb-container">
@@ -214,7 +246,7 @@ export default function JobDetails(props) {
                         <button className="btn btn-default hover-up w-100" type="submit" name="apply">Apply Job</button>
                     </div>
                     <div className="text-muted text-center">Do you need support? <a href="contact">Contact Us</a></div>
-                    @endif
+                    
                     </form>
                 </div>
                 </div>

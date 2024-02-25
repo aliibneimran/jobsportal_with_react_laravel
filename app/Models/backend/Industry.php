@@ -14,4 +14,5 @@ class Industry extends Model
     {
       return $this->hasMany(Job::class); 
     }
+    
 }

@@ -21,6 +21,7 @@ class JobDetailsController extends Controller
         if(Auth::guard('candidate')->check()){
             $candidateId = Auth::guard('candidate')->user()->id;
             $data['user'] = Auth::guard('candidate')->check();
+            $data['user_id'] = Auth::guard('candidate')->user()->id;
             $data['application'] = Applicant::where('candidate_id', $candidateId)->where('job_id', $id)->first();
 
             $data['jobs'] = Job::find($id);
