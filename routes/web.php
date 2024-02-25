@@ -37,6 +37,7 @@ Route::get('/jobs',[JobListController::class, 'index'])->name('jobs');
 Route::get('/job-details/{id}',[JobDetailsController::class, 'index']);
 
 
+
 //Candidate Middleware
 Route::prefix('candidate')->group(function(){
     Route::get('signin',[CandidateController::class,'index'])->name('candidate_login_form');

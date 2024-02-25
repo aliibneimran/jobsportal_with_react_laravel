@@ -44,7 +44,7 @@ class HomeController extends Controller
         $data['totalJobsOneMonth'] = Job::whereBetween('created_at', [$startDate, $endDate])->count();
 
         $data['locations'] = Location::with('job')->get();
-        $data['jobs'] = Job::get();
+        $data['jobs'] = Job::get()->take(1);
         $data['locations'] = Location::get();
         $data['industries'] = Industry::all();
         $data['categories'] = Category::all(); 

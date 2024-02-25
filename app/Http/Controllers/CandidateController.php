@@ -18,10 +18,12 @@ class CandidateController extends Controller
         return Inertia::render('Signin');
     }
     public function login(Request $request){
-        // dd($request->all());
+        // dd(Auth::guard('candidate')->user());
+        // dd($request->session()->getId());
+        
         if(Auth::guard('candidate')->attempt(['email'=> $request->email,'password'=> $request->password])){
             return redirect()->route('candidate_profile');
-            // return Inertia::render('profile');
+            // return Inertia::render('profile',compact('user'));
         }else{
             return redirect()->back()->with('msg','Please enter currect email and password');
         }
@@ -49,9 +51,10 @@ class CandidateController extends Controller
     }
     public function profile(){
         $candidate = Auth::guard('candidate')->user();
+        $user = Auth::guard('candidate')->check();
         $canDetails = CandidateDetails::all()->where('candidate_id', Auth::guard('candidate')->user()->id)->first();
         $application = Applicant::paginate(3);
-        return Inertia::render('Profile',compact('candidate','canDetails','application'));
+        return Inertia::render('Profile',compact('candidate','canDetails','application','user'));
 
     }
     public function editProfile(){
@@ -106,7 +109,6 @@ class CandidateController extends Controller
             $candidateDetails->update($details);
         }
         return redirect()->route('candidate_profile')->with('msg', 'Profile successfully updated');
-    }
-
+    }  
 
 }

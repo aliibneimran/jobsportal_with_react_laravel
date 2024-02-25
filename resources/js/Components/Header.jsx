@@ -1,27 +1,28 @@
 import { Link, usePage } from '@inertiajs/react'
 import React from 'react'
-import { useState } from 'react';
 
-export default function Header() {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+export default function Header(props) {
+    const { user } = usePage().props;
+    // console.log(user); 
     
   return ( 
       <header className="header fixed-top bg-light p-3">
           <div className="container">
-            {isLoggedIn?
+            {user?
               <div className="main-header">
                   <div className="header-left">
                       <div className="header-logo">
                           <Link className="d-flex" href="/">
-                              <img alt="jobBox" src="../frontend/imgs/template/jobhub-logo.svg"/>
+                              <img alt="jobBox" src="../../../frontend/imgs/template/jobhub-logo.svg"/>
                           </Link>
                       </div>
+                      
                   </div>
                   <div className="header-nav">
                       <nav className="nav-main-menu">
                           <ul className="main-menu">
                               <li><Link className="active" href="/">Home</Link></li>
-                              <li><Link href="jobs">Jobs</Link></li>
+                              <li><Link href={route('jobs')}>Jobs</Link></li>
                               <li><Link href="about">About Us</Link></li>
                               <li><Link href="contact">Contact Us</Link></li>
                               <li><Link href="profile">Profile</Link></li>

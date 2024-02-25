@@ -1,12 +1,12 @@
 import Footer from '@/Components/Footer'
 import Header from '@/Components/Header'
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { format } from 'date-fns';
 import parse from 'html-react-parser'
 import React from 'react'
 
 export default function JobDetails(props) {
-    const{jobs,categories,locations,industries,companies,comDetails,application} = usePage().props
+    const{jobs,categories,locations,industries,companies,comDetails,application,user} = usePage().props
     const Auth = () => {};
     const CategoryName = (id) => {
         const category = categories.find(cat => cat.id === id);
@@ -52,7 +52,7 @@ export default function JobDetails(props) {
                     </div>
                     </div>
                     <div className="border-bottom pt-10 pb-10" />
-                    <div className="banner-hero banner-image-single mt-10 mb-20"><img src={'../uploads/' + jobs.image} alt="jobBox" height='300' /></div>
+                    <div className="banner-hero banner-image-single mt-10 mb-20"><img src={'../../../uploads/' + jobs.image} alt="jobBox" height='300' /></div>
                     <div className="job-overview">
                     <h5 className="border-bottom pb-15 mb-30">Overview</h5>
                     <div className="row">
@@ -102,28 +102,24 @@ export default function JobDetails(props) {
                     <div className="single-apply-jobs">
                     <div className="row align-items-center">
                         <div className="col-md-6">
-                        {/* <button style={{ visibility: Auth() ? 'visible' : 'hidden' }} className="btn btn-danger mr-15">Already Applied</button>
+                        {user? 
+                            <div>
+                                { application?
+                                    <button className="btn btn-danger mr-15">Already Applied</button> : ''
+                                }
 
-                        <a style={{ visibility: Auth() ? 'visible' : 'hidden' }} className="btn btn-default mr-15" data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Apply Now</a>
-
-                        <a style={{ visibility: Auth() ? 'visible' : 'hidden' }} className="btn btn-border" href="#">Save Job</a>
-
-                        <a style={{ visibility: Auth() ? 'hidden' : 'visible' }} className="btn btn-primary btn-shadow hover-up mx-2" href="{{ route('candidate_login_form') }}">Please Sign in First</a> */}
-
-                        {
-                            Auth() ? <div>
-                                 <button className="btn btn-danger mr-15">Already Applied</button>
-                                <a className="btn btn-default mr-15" data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Apply Now</a>
-
-                                <a className="btn btn-border" href="#">Save Job</a>
-                                </div> : <div>
-                                <a className="btn btn-primary btn-shadow hover-up mx-2" href="{{ route('candidate_login_form') }}">Please Sign in First</a>
-                                </div>
+                                <Link className="btn btn-default mr-15" data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Apply Now</Link>
+                                <Link className="btn btn-border" href="#">Save Job</Link>
+                            </div> 
+                        :
+                        <div>
+                            <Link className="btn btn-primary btn-shadow hover-up mx-2" href={ route('candidate_login_form') }>Please Sign in First</Link>
+                        </div>
                         }
 
                         </div>
                         <div className="col-md-6 text-lg-end social-share">
-                        <h6 className="color-text-paragraph-2 d-inline-block d-baseline mr-10">Share this</h6><a className="mr-5 d-inline-block d-middle" href="#"><img alt="jobBox" src="../frontend/imgs/template/icons/share-fb.svg" /></a><a className="mr-5 d-inline-block d-middle" href="#"><img alt="jobBox" src="../frontend/imgs/template/icons/share-tw.svg" /></a><a className="mr-5 d-inline-block d-middle" href="#"><img alt="jobBox" src="../frontend/imgs/template/icons/share-red.svg" /></a><a className="d-inline-block d-middle" href="#"><img alt="jobBox" src="../frontend/imgs/template/icons/share-whatsapp.svg" /></a>
+                        <h6 className="color-text-paragraph-2 d-inline-block d-baseline mr-10">Share this</h6><a className="mr-5 d-inline-block d-middle" href="#"><img alt="jobBox" src="../../../frontend/imgs/template/icons/share-fb.svg" /></a><a className="mr-5 d-inline-block d-middle" href="#"><img alt="jobBox" src="../../../frontend/imgs/template/icons/share-tw.svg" /></a><a className="mr-5 d-inline-block d-middle" href="#"><img alt="jobBox" src="../../../frontend/imgs/template/icons/share-red.svg" /></a><a className="d-inline-block d-middle" href="#"><img alt="jobBox" src="../../../frontend/imgs/template/icons/share-whatsapp.svg" /></a>
                         </div>
                     </div>
                     </div>
@@ -171,6 +167,60 @@ export default function JobDetails(props) {
             </div>
             </div>
         </section>
+
+        <div className="modal fade" id="ModalApplyJobForm" tabIndex={-1} aria-hidden="true">
+            <div className="modal-dialog modal-lg">
+                <div className="modal-content apply-job-form">
+                <button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" />
+                <div className="modal-body pl-30 pr-30 pt-50">
+                    <div className="text-center">
+                    <p className="font-sm text-brand-2">Job Application </p>
+                    <h2 className="mt-10 mb-5 text-brand-1 text-capitalize">Start your career today</h2>
+                    <p className="font-sm text-muted mb-30">Please fill in your information and send it to the employer. </p>
+                    </div>
+                   
+                    <form className="login-register text-start mt-20 pb-30" action="{{route('apply.job',$jobs->id)}}" method="post" encType="multipart/form-data"> 
+                    
+                    <input type="hidden" name="job_id"  />
+                    <input type="hidden" name="company_id" />
+                    <input type="hidden" name="candidate_id"  />
+                   
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="input-1">Full Name *</label>
+                        <input className="form-control" id="input-1" type="text" name="name" />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="input-2">Email *</label>
+                        <input className="form-control" id="input-2" type="email" name="email" />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="number">Contact Number *</label>
+                        <input className="form-control" id="number" type="text" name="contact"/>
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="des">Description</label>
+                        <input className="form-control" id="des" type="text" name="bio"/>
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="file">Upload Resume</label>
+                        <input className="form-control" id="file" name="cv" type="file" />
+                    </div>
+                    <div className="login_footer form-group d-flex justify-content-between">
+                        <label className="cb-container">
+                        <input type="checkbox" /><span className="text-small">Agree our terms and policy</span><span className="checkmark" />
+                        </label><a className="text-muted" href="contact">Lean more</a>
+                    </div>
+                    <div className="form-group">
+                        <button className="btn btn-default hover-up w-100" type="submit" name="apply">Apply Job</button>
+                    </div>
+                    <div className="text-muted text-center">Do you need support? <a href="contact">Contact Us</a></div>
+                    @endif
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+
     </main>
     <Footer></Footer>
     </>

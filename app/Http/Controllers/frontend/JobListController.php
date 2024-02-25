@@ -10,6 +10,7 @@ use App\Models\backend\Location;
 use App\Models\Company;
 use App\Models\CompanyDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class JobListController extends Controller
@@ -19,6 +20,7 @@ class JobListController extends Controller
      */
     public function index()
     {
+        $data['user'] = Auth::guard('candidate')->check();
         $data['jobs'] = Job::all();
         $data['industries'] = Industry::all();
         $data['locations'] = Location::all();

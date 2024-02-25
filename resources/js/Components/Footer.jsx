@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="footer mt-50">
         <div className="container">
             <div className="row">
-            <div className="footer-col-1 col-md-3 col-sm-12"><a href="index.html"><img alt="jobBox" src="assets/imgs/template/jobhub-logo.svg" /></a>
+            <div className="footer-col-1 col-md-3 col-sm-12"><a href="index.html"><img alt="jobBox" src="../../../frontend/imgs/template/jobhub-logo.svg" /></a>
                 <div className="mt-20 mb-20 font-xs color-text-paragraph-2">JobBox is the heart of the design community and the best resource to discover and connect with designers and jobs worldwide.</div>
                 <div className="footer-social"><a className="icon-socials icon-facebook" href="#" /><a className="icon-socials icon-twitter" href="#" /><a className="icon-socials icon-linkedin" href="#" /></div>
             </div>
@@ -48,7 +48,7 @@ export default function Footer() {
             <div className="footer-col-6 col-md-3 col-sm-12">
                 <h6 className="mb-20">Download App</h6>
                 <p className="color-text-paragraph-2 font-xs">Download our Apps and get extra 15% Discount on your first Order…!</p>
-                <div className="mt-15"><a className="mr-5" href="#"><img src="assets/imgs/template/icons/app-store.png" alt="joxBox" /></a><a href="#"><img src="assets/imgs/template/icons/android.png" alt="joxBox" /></a></div>
+                <div className="mt-15"><a className="mr-5" href="#"><img src="../../../frontend/imgs/template/icons/app-store.png" alt="joxBox" /></a><a href="#"><img src="../../../frontend/imgs/template/icons/android.png" alt="joxBox" /></a></div>
             </div>
             </div>
             <div className="footer-bottom mt-50">
