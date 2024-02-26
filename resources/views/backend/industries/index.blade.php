@@ -5,6 +5,7 @@
     <div class="card card-default">
         <div class="card-header">
           <h2>All Industries</h2>
+          <a href="{{route('industries.create')}}" class="btn btn-primary justify-content-center">Add New</a>
         </div>
         <!-- Success Message -->
         @if (session('msg'))
@@ -31,7 +32,14 @@
                 <td width="65%">{{$item->description}}</td>
                 <td>
                     <a href="{{route('industries.edit',$item->id)}}" class="m-2"><i class="mdi mdi-square-edit-outline"></i></a>
-                    <a href="{{route('industries.delete',$item->id)}}" onclick="return confirm('Are you sure to delete')" ><i class="mdi mdi-trash-can-outline"></i></a>
+                    
+                    <form action="{{ route('industries.destroy', $item->id) }}" method="POST" style="display: inline;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" onclick="return confirm('Are you sure to delete')">
+                          <i class="mdi mdi-trash-can-outline"></i>
+                      </button>
+                    </form>
                 </td>
               </tr>
             @endforeach

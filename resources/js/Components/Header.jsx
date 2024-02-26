@@ -49,10 +49,9 @@ export default function Header(props) {
                 <nav className="nav-main-menu">
                     <ul className="main-menu"> 
                     <li><Link className="active" href="/">Home</Link></li>
-                    <li><Link href="/jobs">Jobs</Link></li>
-                    <li><Link href="/about">About Us</Link></li>
-                    <li><Link href="/contact">Contact Us</Link></li>
-                    <li><Link href="">Blog</Link></li>
+                    <li><Link href="jobs">Jobs</Link></li>
+                    <li><Link href="about">About Us</Link></li>
+                    <li><Link href="contact">Contact Us</Link></li>
                     </ul>
                 </nav>
                 <div className="burger-icon burger-icon-white"><span className="burger-icon-top" /><span className="burger-icon-mid" /><span className="burger-icon-bottom" /></div>

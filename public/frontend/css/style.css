@@ -1092,7 +1092,7 @@ h6,
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
-  padding: 15px 28px 15px 60px;
+  /* padding: 15px 28px 15px 60px; */
   background: #3C65F5 url(../imgs/page/company/icon-email.svg) no-repeat 25px 15px;
   border-radius: 4px;
 }

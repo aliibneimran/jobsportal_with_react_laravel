@@ -17,26 +17,6 @@ use Inertia\Inertia;
 class HomeController extends Controller
 {
     public function index(Request $request){
-        // $locations = Location::all();
-        // $industries= Industry::all();
-        // $categories = Category::all();
-        // if($request->filled('search')){
-        //     $jobs = Job::
-        //      join('categories', 'jobs.category_id', '=', 'categories.id')
-        //     ->join('locations', 'jobs.location_id', '=', 'locations.id')
-        //     ->join('industries', 'jobs.industry_id', '=', 'industries.id')
-        //     ->where('categories.name', 'like', '%' . $request->search . '%')
-        //     ->orWhere('locations.name', 'like', '%' . $request->search . '%')
-        //     ->orWhere('industries.name', 'like', '%' . $request->search . '%')
-        //     ->orWhere('title', 'like', '%' . $request->search . '%')
-        //     ->orWhere('description', 'like', '%' . $request->search . '%')
-        //     ->orWhere('salary', 'like', '%' . $request->search . '%')
-        //     ->orWhere('tag', 'like', '%' . $request->search . '%')
-        //     ->get();
-        // }else{
-        //     $jobs = Job::all();
-        // }
-        // return view('frontend/home', compact('jobs','locations','industries','categories'));
 
         $startDate = now()->subMonth();  // Start date one month ago
         $endDate = now();                // Current date
@@ -55,8 +35,12 @@ class HomeController extends Controller
 
         $data['total_company'] = Company::count(); 
         $data['total_candidate'] = Candidate::count(); 
-        // return view('frontend/home',$data);
         return Inertia::render('Home',$data);
     }
-
+    public function about(){
+        return Inertia::render('About');
+    }
+    public function contact(){
+        return Inertia::render('Contact');
+    }
 }

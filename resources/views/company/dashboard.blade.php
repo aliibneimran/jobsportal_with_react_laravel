@@ -7,42 +7,50 @@
     <div class="row">
         <div class="col-xl-4 col-sm-6">
             <div class="card-body">
+                <a href="{{route('jobs.index')}}">
                 <div class="bg-primary d-flex flex-wrap p-2 text-white align-items-lg-end">
                   <div class="d-flex flex-column m-auto">
                     <h3 class="text-white p-2 m-auto">Total Jobs</h3>
                     <h3 class="text-white py-2 m-auto">{{$totalJobs}}</h3>
                   </div>
                 </div>
+                </a>
             </div>
         </div>
         <div class="col-xl-4 col-sm-6">
             <div class="card-body">
+                <a href="{{route('applications.index')}}">
                 <div class="bg-info d-flex flex-wrap p-2 text-white align-items-lg-end">
                   <div class="d-flex flex-column m-auto">
                     <h3 class="text-white p-2 m-auto">Total Applicants</h3>
                     <h3 class="text-white py-2 m-auto">{{$totalApplicant}}</h3>
                   </div>
                 </div>
+                </a>
             </div>
         </div>
         <div class="col-xl-4 col-sm-6">
             <div class="card-body">
+                <a href="{{route('applications.index')}}">
                 <div class="bg-success d-flex flex-wrap p-2 text-white align-items-lg-end">
                   <div class="d-flex flex-column m-auto">
                     <h3 class="text-white p-2 m-auto">Total Approved</h3>
                     <h3 class="text-white py-2 m-auto">{{$totalApprove}}</h3>
                   </div>
                 </div>
+                </a>
             </div>
         </div>
         <div class="col-xl-4 col-sm-6">
             <div class="card-body">
+                <a href="{{route('applications.index')}}">
                 <div class="bg-warning d-flex flex-wrap p-2 text-white align-items-lg-end">
                   <div class="d-flex flex-column m-auto">
                     <h3 class="text-white p-2 m-auto">Total Pending</h3>
                     <h3 class="text-white py-2 m-auto">{{$totalPending}}</h3>
                   </div>
                 </div>
+                </a>
             </div>
         </div>
     </div>

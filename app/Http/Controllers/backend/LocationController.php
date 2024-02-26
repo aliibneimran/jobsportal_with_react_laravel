@@ -29,6 +29,10 @@ class LocationController extends Controller
           return redirect()->route('locations.index')->with('msg','Successfully Added');
         }
     }
+    public function show(string $id)
+    {
+       
+    }
     public function edit($id)
     {
         $Location = Location::find($id);
@@ -45,8 +49,9 @@ class LocationController extends Controller
         $Location->update($data);
         return redirect()->route('locations.index')->with('msg', 'Successfully Update'); 
     }
-    public function destroy($id)
+    public function destroy(string $id)
     {
+        // dd($id);
         $Location = Location::find($id);
         $Location->delete($id);
         return redirect()->route('locations.index')->with('msg', 'Successfully Deleted'); 

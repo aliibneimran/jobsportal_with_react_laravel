@@ -180,6 +180,7 @@ class JobController extends Controller
         $job->delete($id);
         return redirect('company/jobs')->with('msg', 'Successfully Deleted');
     }
+    
 }
 
 

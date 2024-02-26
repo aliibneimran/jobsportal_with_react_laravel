@@ -29,6 +29,10 @@ class IndustryController extends Controller
           return redirect()->route('industries.index')->with('msg','Successfully Added');
         }
     }
+    public function show(string $id)
+    {
+       
+    }
     public function edit($id)
     {
         $Industry = Industry::find($id);
@@ -45,8 +49,9 @@ class IndustryController extends Controller
         $Industry->update($data);
         return redirect()->route('industries.index')->with('msg', 'Successfully Update'); 
     }
-    public function delete($id)
+    public function destroy($id)
     {
+        // dd($id);
         $Industry = Industry::find($id);
         $Industry->delete($id);
         return redirect()->route('industries.index')->with('msg', 'Successfully Deleted'); 

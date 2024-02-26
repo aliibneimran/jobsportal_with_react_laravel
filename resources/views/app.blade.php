@@ -12,6 +12,7 @@
 
         <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend/imgs/template/favicon.svg')}}">
         <link href="{{asset('frontend/css/style.css?version=4.1')}}" rel="stylesheet">
+        {{-- <link rel="stylesheet" href="{{asset('frontend/js/plugins/swiper.min.css')}}"> --}}
         <title>@yield('title')</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- Include jQuery -->

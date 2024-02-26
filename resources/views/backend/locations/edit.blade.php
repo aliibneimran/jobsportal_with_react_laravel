@@ -4,6 +4,7 @@
 <div class="content">
 <form action="{{route('locations.update',$single->id)}}" method="POST">
     @csrf
+    @method('PUT')
     <h4 class="p-4">Edit Category</h4>
     <div class="form-group">
       <input type="text" name="name" class="form-control" id="exampleFormControlInput1" value="{{old('name')?old('name'):$single->name}}">

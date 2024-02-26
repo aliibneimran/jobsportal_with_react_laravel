@@ -13,6 +13,8 @@
         @endif
           <div class="card-header">
             <h2 class="mb-5">Choose Your Plan</h2>
+            @if(Auth::guard('admin')->check())
+            <a href="{{route('packages.create')}}" class="btn btn-primary justify-content-center">Add New</a>@endif
           </div>
 
           <div class="card-body">
@@ -36,17 +38,19 @@
                     </ul>
                     <p class="mb-3">{{ Str::words($item->description, $words = 20, $end = '...') }}</p>
                     <div class="d-flex justify-content-center mt-auto">
-                      @if (Auth::guard('admin')->check())
+                    @if (Auth::guard('admin')->check())
                         <a href="{{ route('packages.edit', $item->id) }}" ><i class="mdi mdi-square-edit-outline"></i></a>
-                        <form method="POST" action="{{ route('packages.destroy', $item->id) }}" style="display:inline;" onsubmit="return confirm('Are you sure to delete')">
+                        
+                        <form action="{{ route('all-jobs.destroy', $item->id) }}" method="POST" style="display: inline;">
                           @csrf
-                          <button type="submit" style="border: none; background-color: transparent; cursor: pointer;">
+                          @method('DELETE')
+                          <button type="submit" onclick="return confirm('Are you sure to delete')">
                               <i class="mdi mdi-trash-can-outline"></i>
                           </button>
                         </form>
                     @else
                       <a href="{{route('packages.show',$item->id)}}" class="btn btn-outline-primary btn-pill">Select plan</a>
-                      @endif
+                    @endif
                     </div>
                   </div>
                 </div>

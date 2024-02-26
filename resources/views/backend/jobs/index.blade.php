@@ -5,6 +5,8 @@
     <div class="card card-default">
         <div class="card-header">
           <h2>All Jobs</h2>
+          @if(Auth::guard('company')->check())
+          <a href="{{route('jobs.create')}}" class="btn btn-primary justify-content-center">Add New</a>@endif
         </div>
         <!-- Success Message -->
         @if (session('msg'))
@@ -40,7 +42,6 @@
                 <tr>
                   <td>{{$no++}}</td>
                   <td>
-                    {{-- <img src="{{ asset('uploads/' . $item->image) }}" alt="Image" width="50px" height="50px"> --}}
                     <img src="{{ asset($item->image ? 'uploads/' . $item->image : 'uploads/default_image.jpg') }}" alt="Image" width="50px" height="50px">
                   </td>
                   <td>{{$item->title}}</td>
@@ -52,17 +53,19 @@
                   <td>{{$item->industry->name}}</td>
                   <td>@if($item->availability == 1)Available @else Not Available @endif</td>
                   <td>
+                  @if(Auth::guard('company')->check())
                     <a href="{{ route('jobs.edit', $item->id) }}" class="m-2">
                         <i class="mdi mdi-square-edit-outline"></i>
                     </a>
-                    
-                    <form method="POST" action="{{ route('jobs.destroy', $item->id) }}" style="display:inline;" onsubmit="return confirm('Are you sure to delete')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" style="border: none; background-color: transparent; cursor: pointer;">
-                            <i class="mdi mdi-trash-can-outline"></i>
-                        </button>
+                  @elseif(Auth::guard('admin')->check())
+                    <form action="{{ route('packages.destroy', $item->id) }}" method="POST" style="display: inline;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" onclick="return confirm('Are you sure to delete')">
+                          <i class="mdi mdi-trash-can-outline"></i>
+                      </button>
                     </form>
+                  @endif
                   </td>              
                 </tr>
               @endforeach

@@ -29,6 +29,10 @@ class CategoryController extends Controller
           return redirect()->route('categories.index')->with('msg','Successfully Added');
         }
     }
+    public function show(string $id)
+    {
+       
+    }
     public function edit($id)
     {
         $category = Category::find($id);
@@ -45,7 +49,7 @@ class CategoryController extends Controller
         $category->update($data);
         return redirect()->route('categories.index')->with('msg', 'Successfully Update'); 
     }
-    public function delete($id)
+    public function destroy($id)
     {
         $category = Category::find($id);
         $category->delete($id);

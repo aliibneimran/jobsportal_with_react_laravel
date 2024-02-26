@@ -10,7 +10,7 @@
       <div class="navbar-right">
           <!-- search form -->
           <div class="search-form">
-              <form action="index.html" method="get">
+              <form action="" method="get">
                   <div class="input-group input-group-sm" id="input-group-search">
                       <input type="text" autocomplete="off" name="query" id="search-input" class="form-control" placeholder="Search..."/>
                       <div class="input-group-append">
@@ -97,81 +97,55 @@
                   </div>
               </li>
               <!-- User Account -->
+              @if (Auth::guard('admin')->check())
               <li class="dropdown user-menu">
-                  <button class="dropdown-toggle nav-link" data-toggle="dropdown">
-                    @if (Auth::guard('admin')->check())
-                      <img src="{{asset('assets/images/user/user-xs-01.jpg')}}" class="user-image rounded-circle" alt="Admin"/>
-                      <span class="d-none d-lg-inline-block">{{ Auth::guard('admin')->user()->name }}</span>
-                    @elseif (Auth::guard('company')->check())
-                        <img src="{{asset('uploads/'.($comDetails->image ?? ''))}}" class="user-image rounded-circle" alt="Image" width="30" height="30"/>
-                      <span class="d-none d-lg-inline-block">{{ Auth::guard('company')->user()->name }}</span>
-                    @endif
-                  </button>
-
-        @if (Auth::guard('admin')->check())
-                  <ul class="dropdown-menu dropdown-menu-right">
-                      <li>
-                          <a class="dropdown-link-item" href="user-profile.html">
-                              <i class="mdi mdi-account-outline"></i>
-                              <span class="nav-text">My Profile</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a class="dropdown-link-item" href="email-inbox.html">
-                              <i class="mdi mdi-email-outline"></i>
-                              <span class="nav-text">Message</span>
-                              <span class="badge badge-pill badge-primary">24</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a class="dropdown-link-item" href="user-activities.html">
-                              <i class="mdi mdi-diamond-stone"></i>
-                              <span class="nav-text">Activitise</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a class="dropdown-link-item" href="user-account-settings.html">
-                              <i class="mdi mdi-settings"></i>
-                              <span class="nav-text">Account Setting</span>
-                          </a>
-                      </li>
-                      <li class="dropdown-footer">
-                          <a href="{{ route('admin_logout')}}" class="dropdown-link-item"><i class="mdi mdi-logout"></i> Log Out</a>
-                      </li>
-                  </ul>
-        @elseif (Auth::guard('company')->check())
-        <ul class="dropdown-menu dropdown-menu-right">
-            <li>
-                <a class="dropdown-link-item" href="{{route('company_profile')}}">
-                    <i class="mdi mdi-account-outline"></i>
-                    <span class="nav-text">My Profile</span>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-link-item" href="email-inbox.html">
-                    <i class="mdi mdi-email-outline"></i>
-                    <span class="nav-text">Message</span>
-                    <span class="badge badge-pill badge-primary">24</span>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-link-item" href="user-activities.html">
-                    <i class="mdi mdi-diamond-stone"></i>
-                    <span class="nav-text">Activitise</span>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-link-item" href="user-account-settings.html">
-                    <i class="mdi mdi-settings"></i>
-                    <span class="nav-text">Account Setting</span>
-                </a>
-            </li>
-            <li class="dropdown-footer">
-                <a href="{{ route('company_logout')}}" class="dropdown-link-item"><i class="mdi mdi-logout"></i> Log Out</a>
-            </li>
-        </ul>
-        @endif
+                <button class="dropdown-toggle nav-link" data-toggle="dropdown">
+                    <img src="{{asset('assets/images/user/user-xs-01.jpg')}}" class="user-image rounded-circle" alt="Admin"/>
+                    <span class="d-none d-lg-inline-block">{{ Auth::guard('admin')->user()->name }}</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a class="dropdown-link-item" href="user-profile.html"><i class="mdi mdi-account-outline"></i><span class="nav-text">My Profile</span></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-link-item" href="email-inbox.html"><i class="mdi mdi-email-outline"></i><span class="nav-text">Message</span><span class="badge badge-pill badge-primary">24</span></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-link-item" href="user-activities.html"><i class="mdi mdi-diamond-stone"></i><span class="nav-text">Activitise</span></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-link-item" href="user-account-settings.html"><i class="mdi mdi-settings"></i><span class="nav-text">Account Setting</span></a>
+                    </li>
+                    <li class="dropdown-footer">
+                        <a href="{{ route('admin_logout')}}" class="dropdown-link-item"><i class="mdi mdi-logout"></i> Log Out</a>
+                    </li>
+                </ul>
               </li>
+              @elseif (Auth::guard('company')->check())
+              <li class="dropdown user-menu">
+                <button class="dropdown-toggle nav-link" data-toggle="dropdown">
+                    <img src="{{asset('uploads/'.($comDetails->image ?? ''))}}" class="user-image rounded-circle" alt="Image" width="30" height="30"/>
+                    <span class="d-none d-lg-inline-block">{{ Auth::guard('company')->user()->name }}</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a class="dropdown-link-item" href="{{route('company_profile')}}"><i class="mdi mdi-account-outline"></i><span class="nav-text">My Profile</span></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-link-item" href="email-inbox.html"><i class="mdi mdi-email-outline"></i><span class="nav-text">Message</span><span class="badge badge-pill badge-primary">24</span></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-link-item" href="user-activities.html"><i class="mdi mdi-diamond-stone"></i><span class="nav-text">Activitise</span></a>
+                    </li>
+                    <li>
+                        <a class="dropdown-link-item" href="user-account-settings.html"><i class="mdi mdi-settings"></i><span class="nav-text">Account Setting</span></a>
+                    </li>
+                    <li class="dropdown-footer">
+                        <a href="{{ route('company_logout')}}" class="dropdown-link-item"><i class="mdi mdi-logout"></i> Log Out</a>
+                    </li>
+                </ul> 
+              </li>
+              @endif
           </ul>
       </div>
   </nav>
