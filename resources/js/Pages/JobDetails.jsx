@@ -182,7 +182,7 @@ export default function JobDetails(props) {
                     
                         <div className="form-group">
                             <label className="form-label" htmlFor="input-1">Full Name *</label>
-                            <input className="form-control" type="text" name="name" value={candidate.name || ''} onChange={(e) => setData("name", e.target.value)}/>
+                            <input className="form-control" type="text" name="name" value={candidate.name} onChange={(e) => setData("name", e.target.value)}/>
                         </div>
                         <div className="form-group">
                             <label className="form-label" htmlFor="input-2">Email *</label>

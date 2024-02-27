@@ -58,13 +58,15 @@ class CandidateController extends Controller
 
     }
     public function editProfile(){
+        $user= Auth::guard('candidate')->check();
         $candidate = Auth::guard('candidate')->user();
+        $token = csrf_token();
         $canDetails = CandidateDetails::all()->where('candidate_id', Auth::guard('candidate')->user()->id)->first();
-        return Inertia::render('EditProfile',compact('candidate','canDetails'));
+        return Inertia::render('EditProfile',compact('candidate','canDetails','token','user'));
     } 
     
     public function updateProfile(Request $request){
-        dd($request->all());
+        // dd($request->all());
         $request->validate([
             'name' => 'string|max:255|nullable',
             'email' => 'email|max:255|nullable',

@@ -5,7 +5,7 @@ import React from 'react'
 
 export default function Profile(props) {
   const {candidate, canDetails } = usePage().props;
-  console.log(candidate);
+  // console.log(candidate);
   return (
     <>
 <Header></Header>
@@ -32,7 +32,7 @@ export default function Profile(props) {
                 
                 <div className="row">
                   <div className="mt-35 mb-40 box-info-profie text-center">
-                    <img src="{{asset('uploads/' . ($canDetails->image ?? 'candidate.jpg')) }}" alt="Image" width="120px" height="120px" className="rounded-circle" />
+                    <img src={'../uploads/' + canDetails.image } alt="Image" width="120px" height="120px" className="rounded-circle" />
                   </div>
                   <div className="col-lg-6">
                     <div className="form-group">
@@ -49,19 +49,19 @@ export default function Profile(props) {
                   <div className="col-lg-6">
                     <div className="form-group">
                       <label htmlFor="lastName">Contact</label>
-                      <input type="text" className="form-control aria-disabled"/>
+                      <input type="text" value={canDetails.contact} className="form-control aria-disabled"/>
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="form-group">
                       <label htmlFor="lastName">Address</label>
-                      <input type="text" className="form-control aria-disabled" />
+                      <input type="text" value={canDetails.address} className="form-control aria-disabled" />
                     </div>
                   </div>
                   <div className="col-lg-12">
                     <div className="form-group">
                       <label htmlFor="lastName">Bio</label>
-                      <textarea className="form-control aria-disabled"/>
+                      <textarea className="form-control aria-disabled" value={canDetails.bio}/>
                     </div>
                   </div>
                 </div>

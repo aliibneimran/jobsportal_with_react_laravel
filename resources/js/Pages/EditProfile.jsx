@@ -4,17 +4,9 @@ import { useForm, usePage } from '@inertiajs/react';
 import React from 'react'
 
 export default function EditProfile(props) {
-    const {candidate, canDetails } = usePage().props;
+    const {candidate, canDetails,token,user } = usePage().props;
     const { data,errors, setData, post} = useForm({});
-      function handleSubmit(e) {
-        e.preventDefault();
-    
-        post(route("candidate.update.profile"));
-      }
-    const handleFileChange = (e) => {
-      const file = e.target.files[0];
-      setSelectedFile(file);
-    };  
+      
   return (
     <>
 <Header></Header>
@@ -39,26 +31,27 @@ export default function EditProfile(props) {
               <div className="tab-pane fade show active" id="tab-my-profile" role="tabpanel" aria-labelledby="tab-my-profile">
                 <h3 className="mt-0 mb-15 color-brand-1 text-center">Edit Account</h3>
                 
-                <form method="post" enctype="multipart/form-data" onSubmit={handleSubmit}>
+                <form method="post" enctype="multipart/form-data" action={route("candidate.update.profile")}>
                   <div className="row">
                     <div className="mt-35 mb-40 box-info-profie text-center">
+                    <input type="hidden" name='_token' value={token}/>
                       <div>
                         <img src="{{asset('uploads/' . ($canDetails->image ?? 'candidate.jpg')) }}" alt="Image" width="120px" height="120px" className="rounded-circle" />
                       </div>
                       <div className="m-auto p-10">
-                        <button className="btn btn-primary"><input type="file" name="profile" onChange={handleFileChange}/></button>
+                        <button className="btn btn-primary"><input type="file" name="profile" onChange={(e) => setData("profile", e.target.files[0])}/></button>
                       </div>
                     </div>
                     <div className="col-lg-6">
                       <div className="form-group">
                         <label htmlFor="lastName">Name</label>
-                        <input type="text" name="name" className="form-control" value={data.name} onChange={(e) => setData("name", e.target.value)}/>
+                        <input type="text" name="name" className="form-control" value={candidate.name} onChange={(e) => setData("name", e.target.value)}/>
                       </div>
                     </div>
                     <div className="col-lg-6">
                       <div className="form-group">
                         <label htmlFor="lastName">Email</label>
-                        <input type="email" name="email" className="form-control" value={data.email} onChange={(e) => setData("email", e.target.value)}/>
+                        <input type="email" name="email" className="form-control" value={candidate.email} onChange={(e) => setData("email", e.target.value)}/>
                       </div>
                     </div>
                     <div className="col-lg-6">
