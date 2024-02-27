@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class ApplicationController extends Controller
 {
     public function application(Request $request){
-        dd($request->all());
+        // dd($request->all());
         
         $validate = $request->validate([
             'cv' => 'mimes:pdf'

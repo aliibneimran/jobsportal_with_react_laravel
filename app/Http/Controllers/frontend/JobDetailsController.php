@@ -21,7 +21,7 @@ class JobDetailsController extends Controller
         if(Auth::guard('candidate')->check()){
             $candidateId = Auth::guard('candidate')->user()->id;
             $data['user'] = Auth::guard('candidate')->check();
-            $data['user_id'] = Auth::guard('candidate')->user()->id;
+            $data['candidate'] = Auth::guard('candidate')->user();
             $data['application'] = Applicant::where('candidate_id', $candidateId)->where('job_id', $id)->first();
 
             $data['jobs'] = Job::find($id);
@@ -30,6 +30,7 @@ class JobDetailsController extends Controller
             $data['locations'] = Location::all();
             $data['companies'] = Company::all();
             $data['comDetails'] = CompanyDetails::all();
+            $data['token'] = csrf_token();
             return Inertia::render('JobDetails',$data);
         } else {
             $data['jobs'] = Job::find($id);

@@ -3,9 +3,11 @@ import Footer from '@/Components/Footer'
 import Header from '@/Components/Header'
 import HomeJob from '@/Components/HomeJob'
 import Search from '@/Components/Search'
+import { usePage } from '@inertiajs/react'
 import React from 'react'
 
 export default function Home() {
+    const{user} = usePage().props;
   return (
     <>
         <Header></Header>

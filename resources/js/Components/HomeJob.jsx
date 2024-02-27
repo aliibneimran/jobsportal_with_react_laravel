@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import parse from 'html-react-parser'
 
 export default function HomeJob(props) {
-    const{jobs,categories,locations,companies} = usePage().props
+    const{jobs,categories,locations,companies,user} = usePage().props
     const CategoryName = (id) => {
         const category = categories.find(cat => cat.id === id);
         return category ? category.name : 'Unknown Category';
@@ -80,7 +80,7 @@ export default function HomeJob(props) {
                   <div className="tab-content" id="myTabContent-1">
                       <div className="tab-pane fade show active" id="tab-job-1" role="tabpanel" aria-labelledby="tab-job-1">
                           <div className="row">
-                            {jobs.map(({ title,salary,image,category_id,location_id,description,created_at }) => (
+                            {jobs.map(({id, title,salary,image,category_id,location_id,description,created_at }) => (
                               <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
                                   <div className="card-grid-2 grid-bd-16 hover-up">
                                       <div className="card-grid-2-image">
@@ -94,7 +94,11 @@ export default function HomeJob(props) {
                                           </div>
                                       </div>
                                       <div className="card-block-info">
-                                          <h5><a href="job-details.html">{title}</a></h5>
+                                        {user?
+                                        <h5><Link href={route('job.details',id)}>{title}</Link></h5>
+                                        : 
+                                            <h5><Link href={'job-details/'+ id}>{title}</Link></h5>
+                                        }
                                           <div className="mt-5">
                                               <span className="card-location mr-15">{LocationName(location_id)}</span>
                                               <span className="card-time">{myDate(created_at)}</span>

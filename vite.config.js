@@ -13,7 +13,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-          '@inertiajs/inertia': require.resolve('@inertiajs/inertia'),
+          // '@inertiajs/inertia': require.resolve('@inertiajs/inertia'),
         },
       },
 });

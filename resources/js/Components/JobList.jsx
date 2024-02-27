@@ -12,7 +12,7 @@ export default function JobList(props) {
     const{jobs,categories,locations,industries,companies,comDetails,user} = usePage().props
 
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 3;
+    const itemsPerPage = 6;
     const totalPages = Math.ceil(jobs.length / itemsPerPage);
     const onPageChange = (page) => setCurrentPage(page);
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -79,10 +79,8 @@ export default function JobList(props) {
                             <div className="row">
                             </div>
                             <div className="card-2-bottom mt-30">
-                            <div className="col-lg-12 col-12"><span className="card-text-price">{salary} TK</span></div>
-                            <div className="row">
-                                <div className="col-lg-6 col-6 btn btn-apply-now" data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Apply now</div>
-                            </div>
+                            <div className="col-lg-12 col-12"><span className="card-text-price">{salary} TK/ Month</span></div>
+                           
                             </div>
                         </div>
                         </div>

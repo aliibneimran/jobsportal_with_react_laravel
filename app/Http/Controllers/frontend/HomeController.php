@@ -24,7 +24,7 @@ class HomeController extends Controller
         $data['totalJobsOneMonth'] = Job::whereBetween('created_at', [$startDate, $endDate])->count();
 
         $data['locations'] = Location::with('job')->get();
-        $data['jobs'] = Job::get()->take(1);
+        $data['jobs'] = Job::get()->take(3);
         $data['locations'] = Location::get();
         $data['industries'] = Industry::all();
         $data['categories'] = Category::all(); 
@@ -35,12 +35,15 @@ class HomeController extends Controller
 
         $data['total_company'] = Company::count(); 
         $data['total_candidate'] = Candidate::count(); 
+        $data['user'] = Auth::guard('candidate')->check();
         return Inertia::render('Home',$data);
     }
     public function about(){
-        return Inertia::render('About');
+        $data['user'] = Auth::guard('candidate')->check();
+        return Inertia::render('About',$data);
     }
     public function contact(){
-        return Inertia::render('Contact');
+        $data['user'] = Auth::guard('candidate')->check();
+        return Inertia::render('Contact',$data);
     }
 }

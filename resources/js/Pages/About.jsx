@@ -4,6 +4,7 @@ import Team from '@/Components/Team'
 import React from 'react'
 
 export default function About() {
+    const{user} = usePage().props;
   return (
     <>
     <Header></Header>

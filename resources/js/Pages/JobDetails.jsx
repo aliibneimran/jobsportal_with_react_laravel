@@ -1,14 +1,13 @@
 import Footer from '@/Components/Footer'
 import Header from '@/Components/Header'
-import { Link, usePage } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { format } from 'date-fns';
 import parse from 'html-react-parser'
 import React from 'react'
-import { useState } from 'react';
+
 
 export default function JobDetails(props) {
-    const{jobs,categories,locations,industries,companies,comDetails,application,user,user_id} = usePage().props
-    // const Auth = () => {};
+    const{jobs,categories,locations,industries,companies,comDetails,application,user,candidate,token} = usePage().props
     const CategoryName = (id) => {
         const category = categories.find(cat => cat.id === id);
         return category ? category.name : 'Unknown Category';
@@ -33,38 +32,10 @@ export default function JobDetails(props) {
         const formattedDay = format(new Date(createdAt), 'dd-MM-yyyy');
         return formattedDay;
     };
-
-    const [formData, setFormData] = useState({name: '',email: '',contact: '',bio: '',cv: null,job_id: jobs.id,company_id: jobs.company_id,candidate_id: user_id,});
-    
-      const handleInputChange = (e) => {
-        const { name, value, files } = e.target;
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: files ? files[0] : value,
-        }));
-      };
-    
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-      
-        const form = new FormData();
-        for (const key in formData) {
-          form.append(key, formData[key]);
-        }
-      
-        try {
-          const response = await fetch('/apply-job-route', {  // Replace with your actual route
-            method: 'POST',
-            body: form,
-          });
-      
-          const data = await response.json();
-          console.log(data);
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      };
-    console.log(application)
+    //Application
+    const { data,errors, setData, post} = useForm({});
+   
+    // console.log(application)
   return (
     <>
     <Header></Header>
@@ -80,7 +51,17 @@ export default function JobDetails(props) {
                         <div className="mt-0 mb-15"><span className="card-briefcase">{CategoryName(jobs.category_id)}</span><span className="card-time">{myDate(jobs.created_at)}</span></div>
                     </div>
                         <div className="col-lg-4 col-md-12 text-lg-end">
-                        <a className="btn btn-apply-icon btn-apply btn-apply-big hover-up" data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Apply now</a>
+                         
+                        {user? 
+                          <div>
+                            { application?
+                            <button className="btn btn-danger mr-15">Already Applied</button> 
+                            :
+                            <Link className="btn btn-default mr-15" data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Apply Now</Link>
+                            }
+                          </div>:''
+
+                        }
                     </div>
                     </div>
                     <div className="border-bottom pt-10 pb-10" />
@@ -137,11 +118,12 @@ export default function JobDetails(props) {
                         {user? 
                             <div>
                                 { application?
-                                    <button className="btn btn-danger mr-15">Already Applied</button> : ''
-                                }
-
+                                    <button className="btn btn-danger mr-15">Already Applied</button> 
+                                :
+                                <div>
                                 <Link className="btn btn-default mr-15" data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Apply Now</Link>
-                                <Link className="btn btn-border" href="#">Save Job</Link>
+                                <Link className="btn btn-border" href="#">Save Job</Link></div>
+                                }
                             </div> 
                         :
                         <div>
@@ -180,25 +162,6 @@ export default function JobDetails(props) {
             </div>
             </div>
         </section>
-        <section className="section-box mt-50 mb-20">
-            <div className="container">
-            <div className="box-newsletter">
-                <div className="row">
-                <div className="col-xl-3 col-12 text-center d-none d-xl-block"><img src="{{asset('frontend/imgs/template/newsletter-left.png')}}" alt="joxBox" /></div>
-                <div className="col-lg-12 col-xl-6 col-12">
-                    <h2 className="text-md-newsletter text-center">New Things Will Always<br /> Update Regularly</h2>
-                    <div className="box-form-newsletter mt-40">
-                    <form className="form-newsletter">
-                        <input className="input-newsletter" type="text" defaultValue placeholder="Enter your email here" />
-                        <button className="btn btn-default font-heading icon-send-letter">Subscribe</button>
-                    </form>
-                    </div>
-                </div>
-                <div className="col-xl-3 col-12 text-center d-none d-xl-block"><img src="{{asset('frontend/imgs/template/newsletter-right.png')}}" alt="joxBox" /></div>
-                </div>
-            </div>
-            </div>
-        </section>
 
         <div className="modal fade" id="ModalApplyJobForm" tabIndex={-1} aria-hidden="true">
             <div className="modal-dialog modal-lg">
@@ -211,43 +174,43 @@ export default function JobDetails(props) {
                     <p className="font-sm text-muted mb-30">Please fill in your information and send it to the employer. </p>
                     </div>
                    
-                    <form className="login-register text-start mt-20 pb-30" onSubmit={handleSubmit} method="post" encType="multipart/form-data"> 
+                    {user?<form className="login-register text-start mt-20 pb-30" action={route("apply.job")} method="post" encType="multipart/form-data"> 
+                        <input type="hidden" name='_token' value={token}/>
+                        <input type="hidden" name="job_id"  value={jobs.id}/>
+                        <input type="hidden" name="company_id" value={jobs.company_id}/>
+                        <input type="hidden" name="candidate_id" value={candidate.id}/>
                     
-                    <input type="text" name="job_id" value={formData.job_id} />
-                    <input type="text" name="company_id" value={formData.company_id}/>
-                    <input type="text" name="candidate_id"  value={formData.candidate_id}/>
-                   
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="input-1">Full Name *</label>
-                        <input className="form-control" id="input-1" type="text" name="name" value={formData.name} onChange={handleInputChange}/>
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="input-2">Email *</label>
-                        <input className="form-control" id="input-2" type="email" name="email" value={formData.email} onChange={handleInputChange}/>
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="number">Contact Number *</label>
-                        <input className="form-control" id="number" type="text" name="contact" value={formData.contact} onChange={handleInputChange}/>
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="des">Description</label>
-                        <input className="form-control" id="des" type="text" name="bio" value={formData.description} onChange={handleInputChange}/>
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="file">Upload Resume</label>
-                        <input className="form-control" id="file" name="cv" type="file" value={formData.cv} onChange={handleInputChange}/>
-                    </div>
-                    <div className="login_footer form-group d-flex justify-content-between">
-                        <label className="cb-container">
-                        <input type="checkbox" /><span className="text-small">Agree our terms and policy</span><span className="checkmark" />
-                        </label><a className="text-muted" href="contact">Lean more</a>
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-default hover-up w-100" type="submit" name="apply">Apply Job</button>
-                    </div>
-                    <div className="text-muted text-center">Do you need support? <a href="contact">Contact Us</a></div>
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="input-1">Full Name *</label>
+                            <input className="form-control" type="text" name="name" value={candidate.name || ''} onChange={(e) => setData("name", e.target.value)}/>
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="input-2">Email *</label>
+                            <input className="form-control" type="email" name="email" value={candidate.email} onChange={(e) => setData("email", e.target.value)}/>
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="number">Contact Number *</label>
+                            <input className="form-control" type="text" name="contact" value={candidate.contact} onChange={(e) => setData("contact", e.target.value)}/>
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="des">Description</label>
+                            <input className="form-control" type="text" name="bio" value={data.bio} onChange={(e) => setData("bio", e.target.value)}/>
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="file">Upload Resume</label>
+                            <input className="form-control" type="file" name="cv" onChange={(e) => setData("cv", e.target.files[0])}/>
+                        </div>
+                        <div className="login_footer form-group d-flex justify-content-between">
+                            <label className="cb-container">
+                            <input type="checkbox" /><span className="text-small">Agree our terms and policy</span><span className="checkmark" />
+                            </label><a className="text-muted" href="contact">Lean more</a>
+                        </div>
+                        <div className="form-group">
+                            <button className="btn btn-default hover-up w-100" type="submit" name="apply">Apply Job</button>
+                        </div>
+                        <div className="text-muted text-center">Do you need support? <a href="contact">Contact Us</a></div>
                     
-                    </form>
+                    </form>:''}
                 </div>
                 </div>
             </div>
