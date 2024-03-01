@@ -68,7 +68,7 @@ export default function Contact() {
                 </form>
                 <p className="form-messege" />
                 </div>
-                <div className="col-lg-4 text-center d-none d-lg-block"><img src="frontend/imgs/page/contact/img.png" alt="joxBox" /></div>
+                <div className="col-lg-4 text-center d-none d-lg-block"><img src="../frontend/imgs/page/contact/img.png" alt="joxBox" /></div>
             </div>
             </div>
         </section>

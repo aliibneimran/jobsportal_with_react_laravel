@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\DemoMail;
 use App\Models\Applicant;
+use App\Models\backend\Job;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
@@ -53,8 +54,9 @@ class CandidateController extends Controller
         $candidate = Auth::guard('candidate')->user();
         $user = Auth::guard('candidate')->check();
         $canDetails = CandidateDetails::all()->where('candidate_id', Auth::guard('candidate')->user()->id)->first();
-        $application = Applicant::paginate(3);
-        return Inertia::render('Profile',compact('candidate','canDetails','application','user'));
+        $jobs = Job::all();
+        $application = Applicant::get();
+        return Inertia::render('Profile',compact('candidate','canDetails','application','user','jobs'));
 
     }
     public function editProfile(){

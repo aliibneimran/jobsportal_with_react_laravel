@@ -1,6 +1,7 @@
 import Footer from '@/Components/Footer'
 import Header from '@/Components/Header'
 import Team from '@/Components/Team'
+import { usePage } from '@inertiajs/react';
 import React from 'react'
 
 export default function About() {
@@ -36,7 +37,7 @@ export default function About() {
                 <p className="font-sm color-text-paragraph wow animate__animated animate__fadeInUp w-lg-50 mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ligula ante, dictum non aliquet eu, dapibus ac quam. Morbi vel ante viverra orci tincidunt tempor eu id ipsum. Sed consectetur, risus a blandit tempor, velit magna pellentesque risus, at congue tellus dui quis nisl.</p>
                 </div>
                 <div className="row mt-70">
-                <div className="col-lg-6 col-md-12 col-sm-12"><img src="frontend/imgs/page/about/img-about2.png" alt="joxBox" /></div>
+                <div className="col-lg-6 col-md-12 col-sm-12"><img src="../frontend/imgs/page/about/img-about2.png" alt="joxBox" /></div>
                 <div className="col-lg-6 col-md-12 col-sm-12">
                     <h3 className="mt-15">What we can do?</h3>
                     <div className="mt-20">

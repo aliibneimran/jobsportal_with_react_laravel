@@ -4,8 +4,8 @@ import { usePage } from '@inertiajs/react'
 import React from 'react'
 
 export default function Profile(props) {
-  const {candidate, canDetails } = usePage().props;
-  // console.log(candidate);
+  const {candidate, canDetails,application,user } = usePage().props;
+  console.log();
   return (
     <>
 <Header></Header>
@@ -31,9 +31,11 @@ export default function Profile(props) {
                 <h3 className="mt-0 mb-15 color-brand-1 text-center">My Account</h3>
                 
                 <div className="row">
+                  {/* <div className='col-lg-5 col-md-5 col-sm-5'></div> */}
                   <div className="mt-35 mb-40 box-info-profie text-center">
                     <img src={'../uploads/' + canDetails.image } alt="Image" width="120px" height="120px" className="rounded-circle" />
                   </div>
+                  {/* <div className='col-lg-5 col-md-5 col-sm-5'></div> */}
                   <div className="col-lg-6">
                     <div className="form-group">
                       <label htmlFor="lastName">Name</label>
@@ -71,47 +73,50 @@ export default function Profile(props) {
               
               </div>
 
+            {application?
               <div className="tab-pane fade" id="tab-my-jobs" role="tabpanel" aria-labelledby="tab-my-jobs">
                 <h3 className="mt-0 color-brand-1 mb-50">My Jobs</h3>
                 <div className="row display-list">
-                  
+                {application.map(({id}) => (
                   <div className="col-xl-12 col-12">
                     <div className="card-grid-2 hover-up"><span className="flash" />
                       <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                           <div className="card-grid-2-image-left">
                             <div className="image-box"><img src="../frontend/imgs/brands/brand-5.png" alt="jobBox" /></div>
-                            <div className="right-info"><a className="name-job" href>{'{'}{'{'}$item-&gt;company-&gt;name{'}'}{'}'}</a></div>
+                            <div className="right-info"><a className="name-job" href>{id}company-&gt;name</a></div>
                           </div>
                         </div>
                       </div>
                       <div className="card-block-info">
-                        <h4><a href="{{route('job.details',$item->id)}}">{'{'}{'{'}$item-&gt;job-&gt;title{'}'}{'}'}</a></h4>
-                        <div className="mt-5"><span className="card-briefcase">{'{'}{'{'}$item-&gt;job-&gt;category-&gt;name{'}'}{'}'}</span><span className="card-time"><span>{'{'}{'{'}$item-&gt;job-&gt;created_at{'}'}{'}'}</span></span></div>
-                        <p className="font-sm color-text-paragraph mt-10">{'{'}{'{'} Str::words($item-&gt;job-&gt;description, $words = 20, $end = '...') {'}'}{'}'}</p>
+                        <h4><a href="{{route('job.details',$item->id)}}">$item-&gt;job-&gt;title</a></h4>
+                        <div className="mt-5"><span className="card-briefcase">$item-&gt;job-&gt;category-&gt;name</span><span className="card-time"><span>$item-&gt;job-&gt;created_at</span></span></div>
+                        <p className="font-sm color-text-paragraph mt-10"> Str::words($item-&gt;job-&gt;description, $words = 20, $end = '...') </p>
                         <div className="card-2-bottom mt-20">
                           <div className="row">
-                            <div className="col-lg-7 col-7"><span className="card-text-price">{'{'}{'{'}$item-&gt;job-&gt;salary{'}'}{'}'}</span><span className="text-muted"> TK /Month</span></div>
+                            <div className="col-lg-7 col-7"><span className="card-text-price">$item-&gt;job-&gt;salary</span><span className="text-muted"> TK /Month</span></div>
                             <div className="col-lg-5 col-5 text-end">
-                              @if ($item-&gt;status!=0)
+                              {user?
                               <button className="btn btn-success">Approved</button>
-                              @else
+                              :
                               <button className="btn btn-warning">Pending</button>
-                              @endif
+                              }
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                 
+                ))}
                 </div>
                 <div className="paginations">
                   
                 </div>
               </div>
+            :
+            <div>There is no Application</div>
+            }
               
-              <h2>There is no Application</h2>
               
               <div className="tab-pane fade" id="tab-saved-jobs" role="tabpanel" aria-labelledby="tab-saved-jobs">
                 <h3 className="mt-0 color-brand-1 mb-50">Saved Jobs</h3>
