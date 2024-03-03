@@ -47,21 +47,25 @@ export default function Header(props) {
                     <div className="header-logo"><Link className="d-flex" href="/"><img alt="jobBox" src="../frontend/imgs/template/jobhub-logo.svg" /></Link></div>
                     </div>
                     <div className="header-nav">
-                    <nav className="nav-main-menu">
-                        <ul className="main-menu"> 
-                            <li><Link className="active" href="/">Home</Link></li>
-                            <li><Link href="jobs">Jobs</Link></li>
-                            <li><Link href="about">About Us</Link></li>
-                            <li><Link href="contact">Contact Us</Link></li>
-                            <li className="has-children"><Link href="#">For Company</Link>
-                                <ul className="sub-menu">
-                                    <li><a href={route('company_login_form')}>Sign In</a></li>
-                                    <li><a href={route('company_register')}>Sign Up</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="burger-icon burger-icon-white"><span class="burger-icon-top"></span><span class="burger-icon-mid"></span><span class="burger-icon-bottom"></span></div>
+                        <nav className="nav-main-menu">
+                            <ul className="main-menu"> 
+                                <li><Link className="active" href="/">Home</Link></li>
+                                <li><Link href="jobs">Jobs</Link></li>
+                                <li><Link href="about">About Us</Link></li>
+                                <li><Link href="contact">Contact Us</Link></li>
+                                <li className="has-children"><Link href="#">For Company</Link>
+                                    <ul className="sub-menu">
+                                        <li><a href={route('company_login_form')}>Sign In</a></li>
+                                        <li><a href={route('company_register')}>Sign Up</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="burger-icon burger-icon-white">
+                            <span class="burger-icon-top"></span>
+                            <span class="burger-icon-mid"></span>
+                            <span class="burger-icon-bottom"></span>
+                        </div>
                     </div>
                     <div className="header-right">
                     <div className="block-signin"><Link className="btn btn-primary btn-shadow hover-up mx-2" href={route('candidate_login_form')}>Sign In</Link><Link className="btn btn-success btn-shadow hover-up" href={route('candidate_register')}>Sign Up</Link>
@@ -120,3 +124,4 @@ export default function Header(props) {
     </>
   );
 }
+
