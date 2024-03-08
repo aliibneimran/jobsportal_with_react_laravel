@@ -61,10 +61,10 @@ export default function Header(props) {
                                 </li>
                             </ul>
                         </nav>
-                        <div class="burger-icon burger-icon-white">
-                            <span class="burger-icon-top"></span>
-                            <span class="burger-icon-mid"></span>
-                            <span class="burger-icon-bottom"></span>
+                        <div className="burger-icon burger-icon-white">
+                            <span className="burger-icon-top"></span>
+                            <span className="burger-icon-mid"></span>
+                            <span className="burger-icon-bottom"></span>
                         </div>
                     </div>
                     <div className="header-right">

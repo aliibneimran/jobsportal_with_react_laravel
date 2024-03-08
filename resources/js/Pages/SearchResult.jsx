@@ -13,6 +13,7 @@ export default function JobList(props) {
     const itemsPerPage = 3;
     const totalPages = Math.ceil(jobs.length / itemsPerPage);
     const onPageChange = (page) => setCurrentPage(page);
+    
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const job = jobs.slice(startIndex, endIndex);
@@ -100,4 +101,4 @@ export default function JobList(props) {
         </section>  
     </>
   )
-}
+} 
