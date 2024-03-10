@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidate;
 use App\Models\CandidateDetails;
+use App\Models\CompanyDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\DemoMail;
 use App\Models\Applicant;
 use App\Models\backend\Job;
+use App\Models\Company;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
@@ -56,7 +58,10 @@ class CandidateController extends Controller
         $canDetails = CandidateDetails::all()->where('candidate_id', Auth::guard('candidate')->user()->id)->first();
         $jobs = Job::all();
         $application = Applicant::get();
-        return Inertia::render('Profile',compact('candidate','canDetails','application','user','jobs'));
+        $companies = Company::all();
+        $comDetails = CompanyDetails::all();
+        $categories = CompanyDetails::all();
+        return Inertia::render('Profile',compact('candidate','canDetails','application','user','jobs','companies','comDetails','categories'));
 
     }
     public function editProfile(){

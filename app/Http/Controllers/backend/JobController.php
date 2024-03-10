@@ -89,8 +89,6 @@ class JobController extends Controller
             if ($request->hasFile('photo')) {
                 $filename = time() . '.' . $request->photo->extension();
                 $request->photo->move('uploads', $filename);
-            }else {
-                $filename = 'uploads/default_image.jpg'; 
             }
             
             if ($validate) {

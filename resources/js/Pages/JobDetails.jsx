@@ -65,7 +65,8 @@ export default function JobDetails(props) {
                     </div>
                     </div>
                     <div className="border-bottom pt-10 pb-10" />
-                    <div className="banner-hero banner-image-single mt-10 mb-20"><img src={'../../../uploads/' + jobs.image} alt="jobBox" height='300' /></div>
+                    <div className="banner-hero banner-image-single mt-10 mb-20"><img src={jobs.image ?'/uploads/'+ (jobs.image) : '../uploads/default-image.jpg'} alt="jobBox" height='300' /></div>
+                    {/* jobs.image ? `uploads/${jobs.image}` : 'uploads/default-image.jpg' */}
                     <div className="job-overview">
                     <h5 className="border-bottom pb-15 mb-30">Overview</h5>
                     <div className="row">
@@ -198,7 +199,7 @@ export default function JobDetails(props) {
                         </div>
                         <div className="form-group">
                             <label className="form-label" htmlFor="file">Upload Resume</label>
-                            <input className="form-control" type="file" name="cv" onChange={(e) => setData("cv", e.target.files[0])}/>
+                            <input className="form-control" type="file" name="cv" onChange={(e) => setData("cv", e.target.files[0])}/><span className="text-danger">upload must be pdf file</span>
                         </div>
                         <div className="login_footer form-group d-flex justify-content-between">
                             <label className="cb-container">

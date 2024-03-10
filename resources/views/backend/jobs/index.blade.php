@@ -42,7 +42,7 @@
                 <tr>
                   <td>{{$no++}}</td>
                   <td>
-                    <img src="{{ asset($item->image ? 'uploads/' . $item->image : 'uploads/default_image.jpg') }}" alt="Image" width="50px" height="50px">
+                    <img src="{{ asset($item->image ? 'uploads/' . $item->image : 'default_image.jpg') }}" alt="Image" width="50px" height="50px">
                   </td>
                   <td>{{$item->title}}</td>
                   <td>{{$item->position}}</td>
