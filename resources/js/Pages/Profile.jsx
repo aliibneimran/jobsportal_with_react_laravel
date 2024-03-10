@@ -24,9 +24,13 @@ export default function Profile(props) {
         const company = companies.find(com => com.id === id);
         return company ? company.name : 'Unknown Company';
   };
-    const CategoryName = (id) => {
-      const category = categories.find(cat => cat.id === id);
-      return category ? category.name : 'Unknown Category';
+  const CompanyImage = (id) => {
+    const company = comDetails.find(com => com.id === id);
+    return company ? company.image : 'Unknown Company';
+  };
+  const CategoryName = (job_id) => {
+    const job = jobs.find(item => item.id === job_id);
+    return job ? CategoryName(job.category_id) : 'Unknown Category';
   };
   const myDate = (createdAt) => {
     const formattedDay = format(new Date(createdAt), 'dd-MM-yyyy');
@@ -115,14 +119,16 @@ export default function Profile(props) {
                       <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                           <div className="card-grid-2-image-left">
-                            <div className="image-box"><img src="../frontend/imgs/brands/brand-5.png" alt="jobBox" /></div>
+                            <div className="image-box"><img src={'../uploads/'+ CompanyImage(company_id)} width={50} height={50} alt="jobBox" /></div>
                             <div className="right-info"><a className="name-job" href>{CompanyName(company_id)}</a></div>
                           </div>
                         </div>
                       </div>
                       <div className="card-block-info">
                         <h4><a href="{{route('job.details',$item->id)}}">{JobTitle(job_id)}</a></h4>
-                        <div className="mt-5"><span className="card-briefcase">category</span><span className="card-time"><span>
+                        <div className="mt-5">
+                          {/* <span className="card-briefcase">Category</span> */}
+                          <span className="card-time"><span>
                           {myDate(created_at)}</span></span></div>
                         <p className="font-sm color-text-paragraph mt-10">{parse(shortText(JobDetail(job_id,20)))}</p>
                         <div className="card-2-bottom mt-20">
