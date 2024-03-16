@@ -1,6 +1,6 @@
 import Footer from '@/Components/Footer'
 import Header from '@/Components/Header'
-import { usePage } from '@inertiajs/react'
+import {Link, usePage } from '@inertiajs/react'
 import { format } from 'date-fns';
 import parse from 'html-react-parser'
 import React from 'react'
@@ -63,14 +63,20 @@ export default function Profile(props) {
         <div className="col-lg-9 col-md-8 col-sm-12 col-12 mb-50">
           <div className="content-single">
             <div className="tab-content">
+              
               <div className="tab-pane fade show active" id="tab-my-profile" role="tabpanel" aria-labelledby="tab-my-profile">
                 <h3 className="mt-0 mb-15 color-brand-1 text-center">My Account</h3>
                 
                 <div className="row">
+                  
                   {/* <div className='col-lg-5 col-md-5 col-sm-5'></div> */}
                   <div className="mt-35 mb-40 box-info-profie text-center">
+                  {canDetails && (
+                  
                     <img src={canDetails.image ? '../uploads/' + canDetails.image : '../uploads/candidate.jpg'} alt="Image" width="120px" height="120px" className="rounded-circle" />
+                    )}
                   </div>
+                  
                   {/* <div className='col-lg-5 col-md-5 col-sm-5'></div> */}
                   <div className="col-lg-6">
                     <div className="form-group">
@@ -84,12 +90,15 @@ export default function Profile(props) {
                       <input type="text" value={candidate.email} className="form-control aria-disabled" />
                     </div>
                   </div>
+                  {canDetails && (
+                    <div>
                   <div className="col-lg-6">
                     <div className="form-group">
                       <label htmlFor="lastName">Contact</label>
                       <input type="text" value={canDetails.contact} className="form-control aria-disabled"/>
                     </div>
                   </div>
+                 
                   <div className="col-lg-6">
                     <div className="form-group">
                       <label htmlFor="lastName">Address</label>
@@ -102,12 +111,17 @@ export default function Profile(props) {
                       <textarea className="form-control aria-disabled" value={canDetails.bio}/>
                     </div>
                   </div>
+                  </div>
+                  )}
+                 
+              
                 </div>
                 <div className="mt-20 text-center">
-                  <a href={route('candidate.edit.profile')} className="btn btn-apply-big font-md font-bold bg-primary" type="submit">Edit Profile</a>
+                  <Link href={route('candidate.edit.profile')} className="btn btn-apply-big font-md font-bold bg-primary" type="submit">Edit Profile</Link>
                 </div>
               
               </div>
+              
 
             {application?
               <div className="tab-pane fade" id="tab-my-jobs" role="tabpanel" aria-labelledby="tab-my-jobs">
@@ -125,7 +139,7 @@ export default function Profile(props) {
                         </div>
                       </div>
                       <div className="card-block-info">
-                        <h4><a href="{{route('job.details',$item->id)}}">{JobTitle(job_id)}</a></h4>
+                        <h4><Link href={route('job.details',id)}>{JobTitle(job_id)}</Link></h4>
                         <div className="mt-5">
                           {/* <span className="card-briefcase">Category</span> */}
                           <span className="card-time"><span>

@@ -42,14 +42,17 @@ export default function JobDetails(props) {
     <main className="main mt-80">
         <section className="section-box mt-50">
             <div className="container">
+            {jobs && (
             <div className="row">
                 <div className="col-lg-8 col-md-12 col-sm-12 col-12">
                 <div className="box-border-single">
                     <div className="row mt-10">
+                    
                     <div className="col-lg-8 col-md-12">
                         <h3>{jobs.title}</h3>
                         <div className="mt-0 mb-15"><span className="card-briefcase">{CategoryName(jobs.category_id)}</span><span className="card-time">{myDate(jobs.created_at)}</span></div>
                     </div>
+                    
                         <div className="col-lg-4 col-md-12 text-lg-end">
                          
                         {user? 
@@ -64,9 +67,10 @@ export default function JobDetails(props) {
                         }
                     </div>
                     </div>
+                   
                     <div className="border-bottom pt-10 pb-10" />
                     <div className="banner-hero banner-image-single mt-10 mb-20"><img src={jobs.image ?'/uploads/'+ (jobs.image) : '../uploads/default-image.jpg'} alt="jobBox" height='300' /></div>
-                    {/* jobs.image ? `uploads/${jobs.image}` : 'uploads/default-image.jpg' */}
+                    
                     <div className="job-overview">
                     <h5 className="border-bottom pb-15 mb-30">Overview</h5>
                     <div className="row">
@@ -161,9 +165,11 @@ export default function JobDetails(props) {
                 </div>
                 </div>
             </div>
+            )}
             </div>
         </section>
 
+        
         <div className="modal fade" id="ModalApplyJobForm" tabIndex={-1} aria-hidden="true">
             <div className="modal-dialog modal-lg">
                 <div className="modal-content apply-job-form">
@@ -177,8 +183,12 @@ export default function JobDetails(props) {
                    
                     {user?<form className="login-register text-start mt-20 pb-30" action={route("apply.job")} method="post" encType="multipart/form-data"> 
                         <input type="hidden" name='_token' value={token}/>
+                        {jobs && (
+                        <div>
                         <input type="hidden" name="job_id"  value={jobs.id}/>
                         <input type="hidden" name="company_id" value={jobs.company_id}/>
+                        </div>
+                        )}
                         <input type="hidden" name="candidate_id" value={candidate.id}/>
                     
                         <div className="form-group">
@@ -216,6 +226,7 @@ export default function JobDetails(props) {
                 </div>
             </div>
         </div>
+        
 
     </main>
     <Footer></Footer>
